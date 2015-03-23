@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>MoOS V2</title>
+	<meta name="author" content="Ludovic LAFFINEUR" />
+
+
+	<link rel="stylesheet" type="text/css" href="./jquery.fullPage.css" />
+	<link rel="stylesheet" type="text/css" href="index.css" />
+
+	<!--[if IE]>
+		<script type="text/javascript">
+			 var console = { log: function() {} };
+		</script>
+	<![endif]-->
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+       <script type="text/javascript" src="./jquery.bpopup.min.js"></script>
+        <script type="text/javascript" src="./modernizr.custom.79639.js"></script>
+	<script type="text/javascript" src="./jquery.fullPage.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+	<script type="text/javascript">
+
+		$(document).ready(function() {
+			$('#fullpage').fullpage({
+			  sectionsColor: ['#FC5F4D', '#FC5F4D', '#FC5F4D','#FC5F4D', '#FC5F4D'],
+			  anchors: ['captureDevice', 'configuration','outputs','outputsConfiguration' ,'grid'],
+			  menu: '#topmenu',
+			  continuousVertical: false
+			});
+                        init();
+		});
+
+	</script>
+                 <script language="javascript" type="text/javascript">
+                         function init() { output = document.getElementById("output"); testWebSocket(); }
+
+                </script>
+
+</head>
+<body>
+
+
+<ul id="topmenu">
+	<li data-menuanchor="captureDevice" class="active"> <a href="#captureDevice">Capture Device</a></li>
+	<li data-menuanchor="configuration"><a href="#configuration">Configuration</a></li>
+        <li data-menuanchor="outputs"><a href="#outputs">Outputs</a></li>
+        <li data-menuanchor="outputsConfiguration"><a href="#outputsConfiguration">Outputs Configuration</a></li>
+	<li data-menuanchor="grid"><a href="#grid">Grid</a></li>
+        <li > <a onClick="getSavedFiles()">Load</a></li>
+</ul>
+<div class=toggleButton >
+        <form action="">
+          <input type="radio" name="rdo" id="yes"  />
+          <input type="radio" name="rdo" id="no" checked/>
+          <div class="switch">
+            <label for="yes">Yes</label>
+            <label for="no">No</label>
+            <span></span>
+          </div>
+        </form>
+</div>
+
+<div id="fullpage">
+	<div class="section" id="section0">
+		<img src="pictures/MoOS.png"/ width=200px>
+                <div class="intro">
+                <p> 1. Select your capture device: </p>
+                <ul id="menu" class="CaptureList">
+                	<li> <a href="#configuration">NOT SET</a></li>
+                </ul>
+        </div>
+	</div>
+	<div class="section" id="section1">
+		<div class="intro">
+			<h1>Configuration:</h1>
+                        <p>Select the interface for sniffing:</p>
+                        <ul id="menu" class="Configuration">
+                        	<li> <a href="#captureDevice"> NO CAPTURE DEVICE</a></li>
+                        </ul>
+                </div>
+	</div>
+	<div class="section" id="section2">
+		<div class="intro">
+			<h1>Outputs:</h1>
+                        <p>Which type of output will you use?</p>
+                        <ul id="menu" class="Outputs">
+                        	<li> <a href="#captureDevice"> NOT SET</a></li>
+
+                        </ul>
+                </div>
+	</div>
+	<div class="section" id="section3">
+		<div class="intro">
+			<h1>Output Configuration:</h1>
+                        <p></p>
+                        <ul id="menu" class="OutputsConfiguration">
+                        	<li> <a href="#captureDevice"> NOT SET</a></li>
+
+                        </ul>
+                </div>
+	</div>
+	<div class="section" id="section4">
+		<div class="grid">
+                        <div class="sidebar">
+        		        <h2>Outputs:</h2>
+                                <p class="textArea">
+                                    <label for="name">Name:</label>
+                                </p>
+                                <p class="textArea">
+                                      <input type="text" name="name" id="name" />
+                                </p>
+
+                        </div>
+                        <h1>Description</h1>
+                        <canvas id="drawingGrid" width="700" height="700"></canvas>
+                        <div class="sidebar-right">
+				<div class="wrapper-demo">
+					<div id="dd" class="wrapper-dropdown-3" tabindex="1">
+						<span>Molecules</span>
+						<ul class="dropdown">
+							<li><a href="#"><i class="icon-envelope icon-large"></i>Classic mail</a></li>
+							<li><a href="#"><i class="icon-truck icon-large"></i>UPS Delivery</a></li>
+							<li><a href="#"><i class="icon-plane icon-large"></i>Private jet</a></li>
+						</ul>
+					</div>
+				​</div>
+                                <p class="HP">
+                                <input type="image" src="./pictures/speaker.png" name="image" height="100" onClick="trigGrid()"/>
+                                <!--<input type="range"/> -->
+
+                        </p>
+                        </div>
+		</div>
+
+	</div>
+</div>
+
+</body>
+</html>
