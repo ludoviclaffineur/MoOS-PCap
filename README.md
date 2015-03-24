@@ -1,5 +1,7 @@
 # MoOS-PCap
-![alt tag](http://sonificationlab.laras.be/files/2015/03/Capture-d%E2%80%99%C3%A9cran-2015-03-23-%C3%A0-16.59.51.png)
+<center>![alt tag](http://sonificationlab.laras.be/files/2015/03/MoosBanner.png)</center>
+
+
 Modular Open Sonification Framework Version 1.0 LibPcap only
 
 First version of MoOS-Pcap alpha for mac only (for now). This is a sonification framework that can map any data to sound.
@@ -19,3 +21,4 @@ Capture Devices under development:
 - LeapMotion
 - Serial Connection
 - ODBC - database connection
+
