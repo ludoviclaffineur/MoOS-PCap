@@ -27,17 +27,17 @@ namespace output{
         public:
 
             OutputsHandler();
-            OutputsHandler(const char* n);
-            OutputsHandler(const char* n, float min, float max);
+            OutputsHandler(std::string n);
+            OutputsHandler(std::string n, float min, float max);
             ~OutputsHandler();
             void    setId(int newId);
             int     getId();
             void    addToValue(float a);
-            bool    compareName (const char* n);
+            bool    compareName (std::string n);
             void    extrapolate();
-            const char* getName();
+            std::string getName();
             int     getOuputType();
-            void setName(const char* n);
+            void setName(std::string n);
             std::vector<IParameter*>* getParameters();
             void    reset();
             void setValue(float newValue);
@@ -53,7 +53,7 @@ namespace output{
             int     mOutputType;
             float   mValueBeforeSending;
             int     mParamNumber; //pas topitop
-            char*   mName;
+            std::string mName;
             Converter* mConverter;
             std::vector<IParameter*> mParameters;
 
@@ -62,11 +62,8 @@ namespace output{
             template<class Archive>
             void serialize(Archive &ar, const unsigned int version)
             {
-                    std::stringstream ss;
-                    std::string s;
-                    ss<<mName;
-                    ss>>s;
-                ar & boost::serialization::make_nvp("name",s)
+                    //ar.template register_type<IParameter>();
+                ar & boost::serialization::make_nvp("name",mName)
                    & boost::serialization::make_nvp("Converter",mConverter);
             }
         };

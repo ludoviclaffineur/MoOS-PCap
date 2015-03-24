@@ -23,6 +23,7 @@ namespace midi{
 
 class MidiControlChange : public OutputsHandler{
 public:
+        MidiControlChange(){};
     MidiControlChange(MidiHandler* mh, int controller, std::string name);
     MidiControlChange(MidiHandler* mh, int controller, std::string name, int midiMin, int midiMax);
     MidiControlChange(MidiHandler* mh ,std::string name);

@@ -61,7 +61,7 @@ void Grid::setCoeffs(float **coeffs){
 }
 
 
-void Grid::addInput(const char* name, float min, float max, float xOffset, float yOffset, int typeOfExtrapolation){
+void Grid::addInput(std::string name, float min, float max, float xOffset, float yOffset, int typeOfExtrapolation){
     mInputs.push_back(new Input(name, min, max, xOffset, yOffset, typeOfExtrapolation));
 }
 
@@ -81,7 +81,7 @@ void Grid::addComplementaryCells(OutputsHandler *o){
     }
 }
 
-void Grid::addCell(const char* inputName, const char* outputName, float corrCoeff){
+void Grid::addCell(std::string inputName, std::string outputName, float corrCoeff){
     mCells.push_back(new Cell(getInputWithName(inputName), getOutputWithName(outputName) , corrCoeff));
 }
 
@@ -106,7 +106,7 @@ int Grid::getCurrentOutputId(){
     return mCurrentOutputId;
 }
 
-Input* Grid::getInputWithName(const char* n){
+Input* Grid::getInputWithName(std::string n){
     std::vector<Input*>::iterator j;
     for (j= mInputs.begin(); j!=mInputs.end();j++ ) {
         if ((*j)->compareName(n)) return (*j);
@@ -114,7 +114,7 @@ Input* Grid::getInputWithName(const char* n){
     return NULL;
 }
 
-OutputsHandler* Grid::getOutputWithName(const char* n){
+OutputsHandler* Grid::getOutputWithName(std::string n){
     std::vector<OutputsHandler*>::iterator j;
     for (j= mOutputs.begin(); j!=mOutputs.end();j++ ) {
         if ((*j)->compareName(n)) return (*j);

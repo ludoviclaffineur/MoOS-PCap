@@ -23,7 +23,7 @@ namespace output{
             OscHandler();
             //OscHandler(const char* n);
             OscHandler(const char* ipAddress, const char* port);
-            OscHandler(const char* n, const char* ipAddress, const char* port, const char* oscAddress, const char* oscTag );
+            OscHandler(std::string n, const char* ipAddress, const char* port, const char* oscAddress, const char* oscTag );
             bool sendData (int paramNumber, float value);
             bool sendData ();
 
@@ -39,7 +39,7 @@ namespace output{
             void setParameters(std::vector<std::string> ParameterList);
             bool setOscTag(const char* newOscTag);
             const char* getOscTag() const;
-            OscHandler(const char* n, const char* ipAddress, const char* port, const char* oscAddress, const char* oscTag , int idController, float min, float max);
+            OscHandler(std::string n, const char* ipAddress, const char* port, const char* oscAddress, const char* oscTag , int idController, float min, float max);
             ~OscHandler();
 
         private:

@@ -37,7 +37,7 @@ OscHandler::OscHandler(): OutputsHandler("OscNew",0,1){
     mParameters.push_back(new Parameter<char*>("OscAddressPattern", &mOscAddress));
 }
 
-OscHandler::OscHandler(const char* n, const char* ipAddress, const char* port, const char* oscAddress, const char* oscTag ):OutputsHandler(n,0,1){
+OscHandler::OscHandler(std::string n, const char* ipAddress, const char* port, const char* oscAddress, const char* oscTag ):OutputsHandler(n,0,1){
 
     mIpAddress = new char [strlen(ipAddress) + 1];
     strcpy(mIpAddress, ipAddress);
@@ -67,7 +67,7 @@ OscHandler::OscHandler(const char* n, const char* ipAddress, const char* port, c
 
 }
 
-OscHandler::OscHandler(const char* n, const char* ipAddress, const char* port, const char* oscAddress, const char* oscTag , int idController, float min, float max):OutputsHandler(n,min,max){
+OscHandler::OscHandler(std::string n, const char* ipAddress, const char* port, const char* oscAddress, const char* oscTag , int idController, float min, float max):OutputsHandler(n,min,max){
     mIdController = idController;
     mIpAddress = new char [strlen(ipAddress) + 1];
     strcpy(mIpAddress, ipAddress);

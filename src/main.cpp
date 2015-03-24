@@ -12,7 +12,6 @@ int main(int argc, const char * argv[])
 {
         Grid* theGrid = new Grid();
         std::stringstream ss;
-        std::cout << "YOOOOOO ENTR2ES" << argc <<std::endl;
         WebSocketServer* theWebSocketServer = new WebSocketServer(9002);
         if(argc == 2){
                 ss << argv[1];

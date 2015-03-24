@@ -9,7 +9,7 @@
 #include "MidiControlChange.h"
 
 using namespace output::midi;
-MidiControlChange::MidiControlChange(MidiHandler* mh, std::string name): OutputsHandler(name.c_str()){
+MidiControlChange::MidiControlChange(MidiHandler* mh, std::string name): OutputsHandler(name){
     mOutputType = CONSTANCES::MIDI;
     mMidiHandler = mh;
     mController = 1;

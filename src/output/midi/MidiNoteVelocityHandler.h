@@ -20,6 +20,7 @@ namespace output{
 namespace midi{
 class MidiNoteVelocityHandler : public OutputsHandler{
 public:
+        MidiNoteVelocityHandler(){};
     MidiNoteVelocityHandler(MidiNoteHandler* mh);
     bool sendData();
     void setParameters(std::vector<std::string> ParameterList);

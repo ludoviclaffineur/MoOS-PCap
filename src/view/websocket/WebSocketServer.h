@@ -117,6 +117,9 @@ namespace view{
             output::midi::MidiHandler* mMidiHandler;
             bool isConfigured;
 
+            void saveToXml();
+            void loadXml();
+
             void sendPcapInterfaces(pcap_if_t* interfaces);
         };
 }

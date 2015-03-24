@@ -434,15 +434,8 @@ void WebSocketServer::sendPcapInterfaces(pcap_if_t* interfaces){
 void WebSocketServer::sendInit(){
 
     if (isConfigured) {
-            std::ofstream ofs("filename.xml");
-            assert(ofs.good());
-            boost::archive::xml_oarchive oa(ofs);
-            oa.template register_type<OscHandler>();
-            oa.template register_type<MidiControlChange>();
-            oa.template register_type<MidiNoteDurationHandler>();
-            oa.template register_type<MidiNoteKeyHandler>();
-            oa.template register_type<MidiNoteVelocityHandler>();
-            oa << boost::serialization::make_nvp("Grid",*mGrid);
+            saveToXml();
+            loadXml();
         //SerializeXml* xmlS = new SerializeXml();
             sendGrid();
 
@@ -470,6 +463,36 @@ void WebSocketServer::sendInit(){
 
 
 
+}
+
+void WebSocketServer::loadXml(){
+        std::ifstream ifs("filename.xml");
+        assert(ifs.good());
+        boost::archive::xml_iarchive ia(ifs);
+
+        ia.template register_type<OscHandler>();
+        ia.template register_type<MidiControlChange>();
+        ia.template register_type<MidiNoteDurationHandler>();
+        ia.template register_type<MidiNoteKeyHandler>();
+        ia.template register_type<MidiNoteVelocityHandler>();
+        //Grid* TheG;
+        ia >> boost::serialization::make_nvp("Grid",mGrid);
+        std::cout << "NOMBRE SORTIES" << mGrid->getOutputs()->size() <<std::endl;
+                ifs.close();
+        //ia >> TheG;
+}
+
+void WebSocketServer::saveToXml(){
+        std::ofstream ofs("filename.xml");
+        assert(ofs.good());
+        boost::archive::xml_oarchive oa(ofs);
+        oa.template register_type<OscHandler>();
+        oa.template register_type<MidiControlChange>();
+        oa.template register_type<MidiNoteDurationHandler>();
+        oa.template register_type<MidiNoteKeyHandler>();
+        oa.template register_type<MidiNoteVelocityHandler>();
+        oa << boost::serialization::make_nvp("Grid",mGrid);
+        ofs.close();
 }
 
 void WebSocketServer::sendMessage(boost::property_tree::ptree ptree){

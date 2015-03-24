@@ -27,31 +27,27 @@ class Input : public Setter<float>{
 
 public:
     Input();
-    Input(const char* name);
-    Input(const char* name, Converter c);
-    Input(const char* name, float min, float max, int typeOfExtrapolation);
-    Input(const char* name, float min, float max, float xOffset, float yOffset, int typeOfExtrapolation);
+    Input(std::string name);
+    Input(std::string name, Converter c);
+    Input(std::string name, float min, float max, int typeOfExtrapolation);
+    Input(std::string name, float min, float max, float xOffset, float yOffset, int typeOfExtrapolation);
     ~Input();
 
-    bool    compareName(const char *n);
+    bool    compareName(std::string n);
     float   getExtrapolatedValue();
-    const char* getName();
+    std::string getName();
     void    setValue(float value);
 
 private:
 
-    char*   mName;
+    std::string   mName;
     Converter* mConverter;
     friend class boost::serialization::access;
     //friend std::ostream & operator<<(std::ostream &os, Grid &g);
     template<class Archive>
     void serialize(Archive &ar, const unsigned int version)
     {
-            std::stringstream ss;
-            std::string s;
-            ss<<mName;
-            ss>>s;
-        ar & boost::serialization::make_nvp("name", s) & boost::serialization::make_nvp("converter", mConverter);
+        ar & boost::serialization::make_nvp("name", mName) & boost::serialization::make_nvp("converter", mConverter);
     }
 };
 }

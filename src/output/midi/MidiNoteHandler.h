@@ -20,6 +20,7 @@ namespace midi{
 
 class MidiNote{
 public:
+        MidiNote(){};
     MidiNote(unsigned char key, unsigned char velocity, int duration,MidiHandler* mh);
     unsigned char mKey, mVelocity;
     int mDuration;

@@ -15,26 +15,24 @@ OutputsHandler::OutputsHandler(){
     mValueBeforeSending = 0;
 }
 
-OutputsHandler::OutputsHandler(const char* n){
-    mName = new char [strlen(n) + 1];
-    strcpy(mName, n);
-    mParameters.push_back(new Parameter<char*>("Name", &mName));
+OutputsHandler::OutputsHandler(std::string n): mName(n){
+
+    mParameters.push_back(new Parameter<std::string>("Name", &mName));
     mParameters.push_back(new Parameter<int>("Identifier", &mId));
     mConverter = new Converter(Converter::TypeOfExtrapolation::LINEAR, 0.0,1.0,0.0, 1.0);
 }
 
-OutputsHandler::OutputsHandler(const char* n, float min, float max){
-    mName = new char [strlen(n) + 1];
-    strcpy(mName, n);
+OutputsHandler::OutputsHandler(std::string n, float min, float max): mName(n){
+
     mConverter = new Converter(Converter::TypeOfExtrapolation::LINEAR, 0.0,1.0,0.0, 1.0);
     //mConverter.test();
-    mParameters.push_back(new Parameter<char*>("Name", &mName));
+    mParameters.push_back(new Parameter<std::string>("Name", &mName));
     mParameters.push_back(new Parameter<int>("Identifier", &mId));
 
 }
 
-bool OutputsHandler::compareName(const char *n){
-    return (strcmp(n, mName)==0);
+bool OutputsHandler::compareName(std::string n){
+    return (mName.compare(n)==0);
 }
 
 void OutputsHandler::addToValue(float a){
@@ -64,22 +62,16 @@ void OutputsHandler::reset(){
 }
 
 OutputsHandler::~OutputsHandler(){
-    delete mName;
     delete mConverter;
 }
 
 
-const char* OutputsHandler::getName(){
+std::string OutputsHandler::getName(){
     return mName;
 }
 
-void OutputsHandler::setName(const char *n){
-    if (mName) {
-        delete mName;
-    }
-    //std::cout<<n <<" length " << strlen(n) << std::endl;
-    mName = new char [strlen(n) + 1];
-    strcpy(mName, n);
+void OutputsHandler::setName(std::string n){
+    mName = (*new std::string(n));
 }
 
 int OutputsHandler::getId(){

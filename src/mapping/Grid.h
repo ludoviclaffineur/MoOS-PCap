@@ -37,12 +37,12 @@ namespace mapping{
             ~Grid();
             void    addComplementaryCells(OutputsHandler* o);
             void    addInput(Input* i);
-            void    addInput(const char* Name, float min, float max, float xOffset, float yOffset, int typeOfExtrapolation);
+            void    addInput(std::string Name, float min, float max, float xOffset, float yOffset, int typeOfExtrapolation);
             void    addOutput(OutputsHandler* o);
-            void    addCell(const char* inputName,const char* outputName, float corrCoeff);
+            void    addCell(std::string inputName,std::string outputName, float corrCoeff);
             void    compute();
-            Input*  getInputWithName(const char* n);
-            OutputsHandler* getOutputWithName(const char* n);
+            Input*  getInputWithName(std::string n);
+            OutputsHandler* getOutputWithName(std::string n);
             OutputsHandler* getOutputWithId(int theId);
             std::vector<Input*>* getInputs();
             size_t  getNbrInputs();
@@ -77,7 +77,8 @@ namespace mapping{
             void serialize(Archive &ar, const unsigned int version)
             {
                 ar & boost::serialization::make_nvp("Inputs",mInputs)
-                   & boost::serialization::make_nvp("Outputs", mOutputs);
+                   & boost::serialization::make_nvp("Outputs", mOutputs)
+                   & boost::serialization::make_nvp("Cells", mCells);
             }
         };
 

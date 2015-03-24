@@ -10,38 +10,29 @@
 #include <string.h>
 using namespace input;
 Input::Input(){
-    mName = new char [1];
 }
 
-Input::Input(const char* name):mConverter(){
-    mName = new char [strlen(name)+1];
-    strcpy(mName, name);
+Input::Input(std::string name): mName(name){
 }
 
-Input::Input(const char* name, Converter c){
+Input::Input(std::string name, Converter c): mName(name){
     mConverter = new Converter (c);
-    mName = new char [strlen(name)+1];
-    strcpy(mName, name);
 }
 
-Input::Input(const char* name, float min, float max, int typeOfExtrapolation){
+Input::Input(std::string name, float min, float max, int typeOfExtrapolation): mName(name){
     mConverter = new Converter(typeOfExtrapolation, min, max, 0.0, 1.0);
-    mName = new char [strlen(name)+1];
-    strcpy(mName, name);
-
 }
 
-Input::Input(const char* name, float min, float max, float xOffset, float yOffset, int typeOfExtrapolation){
+Input::Input(std::string name, float min, float max, float xOffset, float yOffset, int typeOfExtrapolation): mName(name){
     mConverter = new Converter(typeOfExtrapolation, min, max, 0.0, 1.0,xOffset, yOffset);
-    mName = new char [strlen(name)+1];
-    strcpy(mName, name);
     //mConverter.test();
 }
 
 
-bool Input::compareName(const char *n){
+bool Input::compareName(std::string n){
+
     //printf("NameInput : %s \n Name to test : %s \n Result strcmp : %d", _Name, n,strcmp(n, _Name));
-    return (strcmp(n, mName)==0);
+    return (mName.compare(n)==0);
 }
 
 void Input::setValue(float value){
@@ -53,11 +44,10 @@ float Input::getExtrapolatedValue(){
     return mValue;
 }
 
-const char* Input::getName(){
+std::string Input::getName(){
     return mName;
 }
 
 Input::~Input(){
-    delete mName;
     delete mConverter;
 }
