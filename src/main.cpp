@@ -26,8 +26,6 @@ int main(int argc, const char * argv[])
         std::cout<<"string stream"<<ss.str()<<std::endl;
         theWebSocketServer->start();
 
-
-
         std::cout<<"Lauching Web server... you can access at http://127.0.0.1"<<std::endl;
         http::server::server s("0.0.0.0", "8080", ss.str());
         s.run();
@@ -38,6 +36,5 @@ int main(int argc, const char * argv[])
         theWebSocketServer->sendStopMessage();
         delete theWebSocketServer;
         //theGrid = new Grid();
-
-            //ConstrainGenetic* theConstrainAlgo = new ConstrainGenetic(theGrid);
+        //ConstrainGenetic* theConstrainAlgo = new ConstrainGenetic(theGrid);
 }
