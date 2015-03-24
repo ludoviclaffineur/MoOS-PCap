@@ -36,12 +36,7 @@ ELSE()
   message (FATAL_ERROR "Could not find PCAP libraries!")
 ENDIF(PCAP_FOUND)
 
-find_library(LeapMotion_LIBRARY
-    NAMES Leap Leapd
-    PATH_SUFFIXES "lib/x86"
-    PATHS ${LeapMotion_POSSIBLE_PATHS}
-)
-message("${LeapMotion_LIBRARY}")
+
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fpermissive")
 
@@ -77,6 +72,17 @@ IF(PORTAUDIO_FOUND)
 ELSE()
   message (FATAL_ERROR "Could not find PORTAUDIO libraries!")
 ENDIF(PORTAUDIO_FOUND)
+
+#FIND_PACKAGE( Soci)
+
+SET (SOCI_LIBRARY /opt/local/lib/libsoci_core.a)
+SET (SOCI_odbc_PLUGIN /opt/local/lib/libsoci_odbc.a)
+	message ("ok SOCI found")
+        message ("${SOCI_LIBRARY}")
+        message("${SOCI_odbc_PLUGIN}")
+  SET(MOOS_INCLUDE_DIRS ${MOOS_INCLUDE_DIRS} "${SOCI_INCLUDE_DIRS}" )
+  SET(MOOS_LIBS ${MOOS_LIBS} "${SOCI_LIBRARY}")
+
 
 
 #FIND_PACKAGE( LeapMotion)

@@ -13,8 +13,14 @@
 #include "Converter.h"
 #include <vector>
 #include "Parameter.h"
+#include <string>
+#include <sstream>
+
+#include <boost/serialization/string.hpp>
+#include <boost/serialization/nvp.hpp>
 
 namespace output{
+        using namespace utils::converter;
         class OutputsHandler{
 
 
@@ -50,6 +56,19 @@ namespace output{
             char*   mName;
             Converter* mConverter;
             std::vector<IParameter*> mParameters;
+
+            friend class boost::serialization::access;
+            //friend std::ostream & operator<<(std::ostream &os, Grid &g);
+            template<class Archive>
+            void serialize(Archive &ar, const unsigned int version)
+            {
+                    std::stringstream ss;
+                    std::string s;
+                    ss<<mName;
+                    ss>>s;
+                ar & boost::serialization::make_nvp("name",s)
+                   & boost::serialization::make_nvp("Converter",mConverter);
+            }
         };
 }
 

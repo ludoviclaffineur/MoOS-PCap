@@ -14,6 +14,8 @@
 #include "MidiNoteHandler.h"
 #include "AppIncludes.h"
 
+#include <boost/serialization/nvp.hpp>
+
 namespace output{
 namespace midi{
 
@@ -29,6 +31,16 @@ private:
     int mMinDuration;
     int mMaxDuration;
     void updateConverter();
+    friend class boost::serialization::access;
+    //friend std::ostream & operator<<(std::ostream &os, Grid &g);
+    template<class Archive>
+    void serialize(Archive &ar, const unsigned int version)
+    {
+
+        ar & boost::serialization::make_nvp("OutputHandler",boost::serialization::base_object<OutputsHandler>(*this))
+           & boost::serialization::make_nvp("minDuration",mMinDuration)
+           & boost::serialization::make_nvp("MaxDuration",mMaxDuration);
+    }
 };
 
 }

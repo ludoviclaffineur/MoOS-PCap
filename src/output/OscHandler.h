@@ -13,6 +13,9 @@
 #include <lo/lo.h>
 #include "OutputsHandler.h"
 
+#include <boost/serialization/string.hpp>
+#include <boost/serialization/nvp.hpp>
+
 namespace output{
         class OscHandler : public OutputsHandler{
 
@@ -47,6 +50,17 @@ namespace output{
             char* mOscTag;
             int mIdController;
             bool setTabChar(char** newOne, const char** oldOne);
+
+            friend class boost::serialization::access;
+            //friend std::ostream & operator<<(std::ostream &os, Grid &g);
+            template<class Archive>
+            void serialize(Archive &ar, const unsigned int version)
+            {
+
+                ar & boost::serialization::make_nvp("OutputHandler",boost::serialization::base_object<OutputsHandler>(*this));
+                ar & boost::serialization::make_nvp("IdController",mIdController);
+            }
+
         };
 }
 

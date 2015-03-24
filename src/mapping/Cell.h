@@ -13,6 +13,7 @@
 #include "Input.h"
 #include "OutputsHandler.h"
 namespace mapping{
+        using namespace input;
         class Cell{
 
         public:

@@ -10,6 +10,8 @@
 #include <math.h>
 #include <string.h>
 
+using namespace utils::converter;
+
 Converter::Converter(){}
 
 Converter::Converter(int typeOfExtrapolation){

@@ -13,6 +13,9 @@
 #include "OutputsHandler.h"
 #include "MidiNoteHandler.h"
 #include "AppIncludes.h"
+
+#include <boost/serialization/nvp.hpp>
+
 namespace output{
 namespace midi{
 class MidiNoteVelocityHandler : public OutputsHandler{
@@ -27,6 +30,16 @@ private:
     int mMaxVelocity;
     int mMinVelocity;
     void updateConverter();
+    friend class boost::serialization::access;
+    //friend std::ostream & operator<<(std::ostream &os, Grid &g);
+    template<class Archive>
+    void serialize(Archive &ar, const unsigned int version)
+    {
+
+        ar & boost::serialization::make_nvp("OutputHandler",boost::serialization::base_object<OutputsHandler>(*this))
+           & boost::serialization::make_nvp("minVelocity",mMinVelocity)
+           & boost::serialization::make_nvp("maxVelocity",mMaxVelocity);
+    }
 };
 }
 }

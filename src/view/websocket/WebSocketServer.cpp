@@ -434,7 +434,15 @@ void WebSocketServer::sendPcapInterfaces(pcap_if_t* interfaces){
 void WebSocketServer::sendInit(){
 
     if (isConfigured) {
-
+            std::ofstream ofs("filename.xml");
+            assert(ofs.good());
+            boost::archive::xml_oarchive oa(ofs);
+            oa.template register_type<OscHandler>();
+            oa.template register_type<MidiControlChange>();
+            oa.template register_type<MidiNoteDurationHandler>();
+            oa.template register_type<MidiNoteKeyHandler>();
+            oa.template register_type<MidiNoteVelocityHandler>();
+            oa << boost::serialization::make_nvp("Grid",*mGrid);
         //SerializeXml* xmlS = new SerializeXml();
             sendGrid();
 

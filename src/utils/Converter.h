@@ -11,39 +11,60 @@
 
 #include <iostream>
 
-class Converter{
+#include <boost/serialization/nvp.hpp>
 
-public:
-    enum TypeOfExtrapolation {
-        LINEAR      = 1,
-        LOGARITHMIC = 2,
-        EXPONENTIAL = 3
-    };
-    Converter();
-    Converter(Converter * c);
-    Converter(int typeOfExtrapolation);
-    Converter(int typeOfExtrapolation, float xmin, float xmax, float ymin, float ymax);
-    Converter(int typeOfExtrapolation, float xmin, float xmax, float ymin, float ymax, float xOffset, float yOffset);
+namespace utils{
+namespace converter{
+        class Converter{
 
-    float   extrapolate(float inputValue);
-    void    setDModifier(float d);
-    void    setCModifier(float c);
-    void    test();
-    void    setYMin(int YMin);
-    void    setYMax(int YMax);
+        public:
+            enum TypeOfExtrapolation {
+                LINEAR      = 1,
+                LOGARITHMIC = 2,
+                EXPONENTIAL = 3
+            };
+            Converter();
+            Converter(Converter * c);
+            Converter(int typeOfExtrapolation);
+            Converter(int typeOfExtrapolation, float xmin, float xmax, float ymin, float ymax);
+            Converter(int typeOfExtrapolation, float xmin, float xmax, float ymin, float ymax, float xOffset, float yOffset);
 
-private:
-    float   exponential(float inputValue);
-    float   linear(float inputValue);
-    float   logarithmic(float inputValue);
-    
-    int     mCurrentExtrapolation;
-    float   mXMaxValue;
-    float   mXMinValue;
-    float   mYMaxValue;
-    float   mYMinValue;
-    float   mXOffset;
-    float   mYOffset;
-};
+            float   extrapolate(float inputValue);
+            void    setDModifier(float d);
+            void    setCModifier(float c);
+            void    test();
+            void    setYMin(int YMin);
+            void    setYMax(int YMax);
+
+        private:
+            float   exponential(float inputValue);
+            float   linear(float inputValue);
+            float   logarithmic(float inputValue);
+
+            int     mCurrentExtrapolation;
+            float   mXMaxValue;
+            float   mXMinValue;
+            float   mYMaxValue;
+            float   mYMinValue;
+            float   mXOffset;
+            float   mYOffset;
+            friend class boost::serialization::access;
+            //friend std::ostream & operator<<(std::ostream &os, Grid &g);
+            template<class Archive>
+            void serialize(Archive &ar, const unsigned int version)
+            {
+                ar & boost::serialization::make_nvp("XMaxValue", mXMaxValue)
+                   & boost::serialization::make_nvp("XMinValue", mXMinValue)
+                   & boost::serialization::make_nvp("YMaxValue", mYMaxValue)
+                   & boost::serialization::make_nvp("YMinValue", mYMinValue)
+                   & boost::serialization::make_nvp("CurrentExtrapolation", mCurrentExtrapolation)
+                   & boost::serialization::make_nvp("XOffset", mXOffset)
+                   & boost::serialization::make_nvp("YOffset", mYOffset);
+            }
+        };
+
+}
+}
+
 
 #endif /* defined(__libpcapTest__converter__) */

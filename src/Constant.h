@@ -10,6 +10,6 @@
 #define MoOS_Constant_h
 #include <string>
 #include <sstream>
-const std::string CURRENT_PATH ="/Users/ludoviclaffineur/Documents/MoOS/build/Release";
+const std::string CURRENT_PATH =".";
 
 #endif

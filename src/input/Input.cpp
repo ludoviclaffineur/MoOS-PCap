@@ -8,7 +8,7 @@
 
 #include "Input.h"
 #include <string.h>
-
+using namespace input;
 Input::Input(){
     mName = new char [1];
 }
