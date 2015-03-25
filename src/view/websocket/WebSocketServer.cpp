@@ -141,7 +141,13 @@ void WebSocketServer::dispatchRequest(message_ptr msg){
         //sendGrid();
     }
     else if (strcmp(pt.get<std::string>("action").c_str(), "getSavedFiles")==0){
-        sendSavedFiles();
+        //sendSavedFiles();
+            loadXml();
+
+            sendGrid();
+    }
+    else if (strcmp(pt.get<std::string>("action").c_str(), "saveState")==0){
+        saveToXml();
         //sendGrid();
     }
 }
@@ -434,8 +440,8 @@ void WebSocketServer::sendPcapInterfaces(pcap_if_t* interfaces){
 void WebSocketServer::sendInit(){
 
     if (isConfigured) {
-            saveToXml();
-            loadXml();
+           // saveToXml();
+            //loadXml();
         //SerializeXml* xmlS = new SerializeXml();
             sendGrid();
 

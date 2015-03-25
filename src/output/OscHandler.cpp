@@ -147,6 +147,7 @@ std::string OscHandler::getPort(){
 
 bool OscHandler::setOscTag(std::string newOscTag){
     mOscTag = newOscTag;
+    return true;
 }
 
 std::string OscHandler::getOscTag(){

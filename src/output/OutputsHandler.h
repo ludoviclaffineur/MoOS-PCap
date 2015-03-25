@@ -29,7 +29,7 @@ namespace output{
             OutputsHandler();
             OutputsHandler(std::string n);
             OutputsHandler(std::string n, float min, float max);
-            ~OutputsHandler();
+            virtual ~OutputsHandler();
             void    setId(int newId);
             int     getId();
             void    addToValue(float a);
