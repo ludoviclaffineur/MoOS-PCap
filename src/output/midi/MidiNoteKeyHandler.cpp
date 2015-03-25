@@ -8,6 +8,14 @@
 
 #include "MidiNoteKeyHandler.h"
 using namespace output::midi;
+
+MidiNoteKeyHandler::MidiNoteKeyHandler():OutputsHandler("MidiKey"){
+        mOutputType = CONSTANCES::MIDI;
+        mMinKey = 0;
+        mMaxKey = 0;
+        mParameters.push_back(new Parameter<int>("MinKey", &mMinKey));
+        mParameters.push_back(new Parameter<int>("MaxKey", &mMaxKey));
+}
 MidiNoteKeyHandler::MidiNoteKeyHandler(MidiNoteHandler* mh):OutputsHandler("MidiKey"){
     mMidiNoteHandler = mh;
     mOutputType = CONSTANCES::MIDI;

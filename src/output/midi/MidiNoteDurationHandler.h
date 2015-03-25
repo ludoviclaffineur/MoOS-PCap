@@ -21,7 +21,7 @@ namespace midi{
 
 class MidiNoteDurationHandler : public OutputsHandler{
 public:
-        MidiNoteDurationHandler(){};
+    MidiNoteDurationHandler();
     MidiNoteDurationHandler(MidiNoteHandler* mh);
     bool sendData();
     void setParameters(std::vector<std::string> ParameterList);

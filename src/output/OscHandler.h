@@ -1,13 +1,13 @@
 //
 //  Osc.h
-//  libpcapTest
+//  MoOS
 //
 //  Created by Ludovic Laffineur on 29/10/13.
 //  Copyright (c) 2013 Ludovic Laffineur. All rights reserved.
 //
 
-#ifndef __libpcapTest__OscHandler__
-#define __libpcapTest__OscHandler__
+#ifndef __MoOS__OscHandler__
+#define __MoOS__OscHandler__
 
 #include <iostream>
 #include <lo/lo.h>
@@ -21,33 +21,33 @@ namespace output{
 
         public:
             OscHandler();
-            //OscHandler(const char* n);
-            OscHandler(const char* ipAddress, const char* port);
-            OscHandler(std::string n, const char* ipAddress, const char* port, const char* oscAddress, const char* oscTag );
+            //OscHandler(std::string n);
+            OscHandler(std::string ipAddress, std::string port);
+            OscHandler(std::string n, std::string ipAddress, std::string port, std::string oscAddress, std::string oscTag );
             bool sendData (int paramNumber, float value);
             bool sendData ();
 
-            bool setIpAdress(const char* newIp);
-            const char* getIpAdress() const;
+            bool setIpAdress(std::string newIp);
+            std::string getIpAdress();
 
-            bool setOscAddress(const char* newOscAddress);
-            const char* getOscAddress() const;
+            bool setOscAddress(std::string newOscAddress);
+            std::string getOscAddress();
 
-            bool setPort(const char* newPort);
-            const char* getPort() const;
+            bool setPort(std::string newPort);
+            std::string getPort();
 
             void setParameters(std::vector<std::string> ParameterList);
-            bool setOscTag(const char* newOscTag);
-            const char* getOscTag() const;
-            OscHandler(std::string n, const char* ipAddress, const char* port, const char* oscAddress, const char* oscTag , int idController, float min, float max);
+            bool setOscTag(std::string newOscTag);
+            std::string getOscTag();
+            OscHandler(std::string n, std::string ipAddress, std::string port, std::string oscAddress, std::string oscTag , int idController, float min, float max);
             ~OscHandler();
 
         private:
             lo_address mDistant;
-            char* mIpAddress;
-            char* mPort;
-            char* mOscAddress;
-            char* mOscTag;
+            std::string mIpAddress;
+            std::string mPort;
+            std::string mOscAddress;
+            std::string mOscTag;
             int mIdController;
             bool setTabChar(char** newOne, const char** oldOne);
 
@@ -58,7 +58,11 @@ namespace output{
             {
 
                 ar & boost::serialization::make_nvp("OutputHandler",boost::serialization::base_object<OutputsHandler>(*this));
-                ar & boost::serialization::make_nvp("IdController",mIdController);
+                ar & boost::serialization::make_nvp("IdController",mIdController)
+                   & boost::serialization::make_nvp("IpAdress",mIpAddress)
+                   & boost::serialization::make_nvp("Port",mPort)
+                   & boost::serialization::make_nvp("OscTag",mOscTag)
+                   & boost::serialization::make_nvp("OscAddress",mOscAddress);
             }
 
         };
@@ -66,4 +70,4 @@ namespace output{
 
 
 
-#endif /* defined(__libpcapTest__Osc__) */
+#endif /* defined(__MoOS__Osc__) */

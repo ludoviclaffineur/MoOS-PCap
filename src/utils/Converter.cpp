@@ -1,6 +1,6 @@
 //
 //  converter.cpp
-//  libpcapTest
+//  MoOS
 //
 //  Created by Ludovic Laffineur on 28/10/13.
 //  Copyright (c) 2013 Ludovic Laffineur. All rights reserved.

@@ -10,6 +10,13 @@
 
 using namespace output::midi;
 
+MidiNoteDurationHandler::MidiNoteDurationHandler(): OutputsHandler("Duration"){
+        mMinDuration = 0;
+        mMaxDuration = 0;
+        mParameters.push_back(new Parameter<int>("MinDuration", &mMinDuration));
+        mParameters.push_back(new Parameter<int>("MaxDuration", &mMaxDuration));
+}
+
 MidiNoteDurationHandler::MidiNoteDurationHandler(MidiNoteHandler* mh):
     OutputsHandler("Duration"){
         mOutputType = CONSTANCES::MIDI;

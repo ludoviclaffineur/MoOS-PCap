@@ -1,6 +1,6 @@
 //
 //  PcapHandler.h
-//  libpcapTest
+//  MoOS
 //
 //  Created by Ludovic Laffineur on 25/10/13.
 //  Copyright (c) 2013 Ludovic Laffineur. All rights reserved.
@@ -63,4 +63,4 @@ namespace capture{
 
 
 
-#endif /* defined(__libpcapTest__PcapHandler__) */
+#endif /* defined(__MoOS__PcapHandler__) */

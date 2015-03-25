@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cp ./MoOS ./MoOSApp.app/Contents/MacOS/
+chown root:admin ./MoOSApp.app/Contents/MacOS/

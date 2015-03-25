@@ -1,13 +1,13 @@
 //
 //  converter.h
-//  libpcapTest
+//  MoOS
 //
 //  Created by Ludovic Laffineur on 28/10/13.
 //  Copyright (c) 2013 Ludovic Laffineur. All rights reserved.
 //
 
-#ifndef __libpcapTest__converter__
-#define __libpcapTest__converter__
+#ifndef __MoOS__converter__
+#define __MoOS__converter__
 
 #include <iostream>
 
@@ -67,4 +67,4 @@ namespace converter{
 }
 
 
-#endif /* defined(__libpcapTest__converter__) */
+#endif /* defined(__MoOS__converter__) */

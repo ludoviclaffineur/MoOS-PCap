@@ -9,6 +9,15 @@
 #include "MidiControlChange.h"
 
 using namespace output::midi;
+
+MidiControlChange::MidiControlChange(): OutputsHandler("MidiControlChange"){
+        mOutputType = CONSTANCES::MIDI;
+        mParameters.push_back(new Parameter<unsigned short>("cc", &mController));
+        mParameters.push_back(new Parameter<int>("OutputType", &mOutputType));
+        mParameters.push_back(new Parameter<unsigned short>("MinCCValue", &mMinMidi));
+        mParameters.push_back(new Parameter<unsigned short>("MaxCCValue", &mMaxMidi));
+}
+
 MidiControlChange::MidiControlChange(MidiHandler* mh, std::string name): OutputsHandler(name){
     mOutputType = CONSTANCES::MIDI;
     mMidiHandler = mh;

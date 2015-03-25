@@ -9,6 +9,12 @@
 #include "MidiNoteVelocityHandler.h"
 
 using namespace output::midi;
+MidiNoteVelocityHandler::MidiNoteVelocityHandler(): OutputsHandler("MidiVelocity"){
+        mMinVelocity = mMaxVelocity = 0;
+        mParameters.push_back(new Parameter<int>("MinVelocity", &mMinVelocity));
+        mParameters.push_back(new Parameter<int>("MaxVelocity", &mMaxVelocity));
+}
+
 
 MidiNoteVelocityHandler::MidiNoteVelocityHandler(MidiNoteHandler* mh): OutputsHandler("MidiVelocity"){
     mMidiNoteHandler = mh;

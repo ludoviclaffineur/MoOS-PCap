@@ -21,7 +21,7 @@ namespace midi{
 
 class MidiNoteKeyHandler : public OutputsHandler{
 public:
-        MidiNoteKeyHandler(){};
+        MidiNoteKeyHandler();
     MidiNoteKeyHandler(MidiNoteHandler* mh);
     bool sendData();
     void setParameters(std::vector<std::string> ParameterList);
