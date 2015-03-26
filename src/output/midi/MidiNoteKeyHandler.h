@@ -25,7 +25,7 @@ public:
     MidiNoteKeyHandler(MidiNoteHandler* mh);
     bool sendData();
     void setParameters(std::vector<std::string> ParameterList);
-
+    void setOutputDevice(void* device);
 private:
     MidiNoteHandler* mMidiNoteHandler;
     void setMinKey(int minKey);
@@ -33,6 +33,8 @@ private:
     int mMinKey;
     int mMaxKey;
     void updateConverter();
+
+
     friend class boost::serialization::access;
     //friend std::ostream & operator<<(std::ostream &os, Grid &g);
     template<class Archive>

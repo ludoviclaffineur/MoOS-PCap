@@ -37,7 +37,7 @@ MidiHandler::MidiHandler(){
 }
 
 MidiHandler::~MidiHandler(){
-    delete mMidiOut;
+    //delete mMidiOut;
 }
 
 void MidiHandler::selectPort(){

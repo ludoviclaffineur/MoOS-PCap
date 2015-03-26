@@ -10,7 +10,7 @@
 
 using namespace output::midi;
 
-MidiNoteDurationHandler::MidiNoteDurationHandler(): OutputsHandler("Duration"){
+MidiNoteDurationHandler::MidiNoteDurationHandler()/*: OutputsHandler("Duration")*/{
         mMinDuration = 0;
         mMaxDuration = 0;
         mParameters.push_back(new Parameter<int>("MinDuration", &mMinDuration));
@@ -66,4 +66,8 @@ void MidiNoteDurationHandler::updateConverter(){
     mConverter->setYMin(mMinDuration);
     mConverter->setYMax(mMaxDuration);
 
+}
+
+void MidiNoteDurationHandler::setOutputDevice(void* device){
+    mMidiNoteHandler =  (MidiNoteHandler*) device;
 }

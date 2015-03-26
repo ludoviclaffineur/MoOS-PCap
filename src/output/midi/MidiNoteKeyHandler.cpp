@@ -9,7 +9,7 @@
 #include "MidiNoteKeyHandler.h"
 using namespace output::midi;
 
-MidiNoteKeyHandler::MidiNoteKeyHandler():OutputsHandler("MidiKey"){
+MidiNoteKeyHandler::MidiNoteKeyHandler()/*: OutputsHandler("MidiVelocity")*/{
         mOutputType = CONSTANCES::MIDI;
         mMinKey = 0;
         mMaxKey = 0;
@@ -65,4 +65,8 @@ void MidiNoteKeyHandler::setMaxKey(int maxKey){
 void MidiNoteKeyHandler::updateConverter(){
     mConverter->setYMax(mMaxKey);
     mConverter->setYMin(mMinKey);
+}
+
+void MidiNoteKeyHandler::setOutputDevice(void* device){
+    mMidiNoteHandler =  (MidiNoteHandler*) device;
 }

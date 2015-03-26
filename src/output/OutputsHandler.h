@@ -47,6 +47,7 @@ namespace output{
             virtual bool sendData (int paramNumber, float value){return false;};
             virtual bool sendData (){return false;};
             virtual void setParameters(std::vector<std::string> ParameterList)=0;
+            virtual void setOutputDevice(void* device){};
         protected:
 
             int     mId;
@@ -64,6 +65,8 @@ namespace output{
             {
                     //ar.template register_type<IParameter>();
                 ar & boost::serialization::make_nvp("name",mName)
+                   & boost::serialization::make_nvp("identifier",mId)
+                   & boost::serialization::make_nvp("outputType",mOutputType)
                    & boost::serialization::make_nvp("Converter",mConverter);
             }
         };

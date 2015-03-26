@@ -1,4 +1,4 @@
-#include "Grid.h"
+//#include "Grid.h"
 #include "WebSocketServer.h"
 #include "server.hpp"
 
@@ -19,8 +19,6 @@ int main(int argc, const char * argv[])
         full_path = fs::system_complete( fs::path( argv[0] ) );
 
         std::cout << full_path.parent_path() << std::endl;
-
-        Grid* theGrid = new Grid();
         std::stringstream ss;
         WebSocketServer* theWebSocketServer = new WebSocketServer(9002);
 
@@ -34,7 +32,7 @@ int main(int argc, const char * argv[])
         s.run();
         std::cout<<"\nShuting down Web server..."<<std::endl;
         //delete theCaptureDevice;
-        delete theGrid;
+        // delete theGrid;
         //delete theGeneticAlgorithm;
         theWebSocketServer->sendStopMessage();
         delete theWebSocketServer;

@@ -31,12 +31,12 @@ private:
     int mMaxVelocity;
     int mMinVelocity;
     void updateConverter();
+    void setOutputDevice(void* device);
     friend class boost::serialization::access;
     //friend std::ostream & operator<<(std::ostream &os, Grid &g);
     template<class Archive>
     void serialize(Archive &ar, const unsigned int version)
     {
-
         ar & boost::serialization::make_nvp("OutputHandler",boost::serialization::base_object<OutputsHandler>(*this))
            & boost::serialization::make_nvp("minVelocity",mMinVelocity)
            & boost::serialization::make_nvp("maxVelocity",mMaxVelocity);

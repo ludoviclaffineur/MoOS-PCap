@@ -13,6 +13,7 @@
 #include "OutputsHandler.h"
 #include "MidiHandler.h"
 #include "AppIncludes.h"
+#include "MidiNoteHandler.h"
 
 #include <boost/serialization/nvp.hpp>
 
@@ -30,6 +31,7 @@ public:
     bool sendData();
     void setControllerId(unsigned char newController);
     void setParameters(std::vector<std::string> ParameterList);
+    void setOutputDevice(void* device);
 private:
     MidiHandler* mMidiHandler;
     unsigned short mController;

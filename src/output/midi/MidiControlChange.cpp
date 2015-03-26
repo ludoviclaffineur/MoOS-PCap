@@ -10,7 +10,7 @@
 
 using namespace output::midi;
 
-MidiControlChange::MidiControlChange(): OutputsHandler("MidiControlChange"){
+MidiControlChange::MidiControlChange()/*: OutputsHandler("MidiControlChange")*/{
         mOutputType = CONSTANCES::MIDI;
         mParameters.push_back(new Parameter<unsigned short>("cc", &mController));
         mParameters.push_back(new Parameter<int>("OutputType", &mOutputType));
@@ -86,4 +86,8 @@ void MidiControlChange::updateConverter(){
     mConverter->setYMin(mMinMidi);
     mConverter->setYMax(mMaxMidi);
 
+}
+
+void MidiControlChange::setOutputDevice(void* device){
+    mMidiHandler =  ((MidiNoteHandler*) device)->getMidiHandler();
 }

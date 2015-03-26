@@ -24,6 +24,10 @@ public:
 private:
     Grid* mGrid;
     Input* mInput;
+    void setGrid(Grid* g){
+        mGrid = g;
+        mInput = g->getInputWithName("DhcpRequest");
+    }
 };
 
 }

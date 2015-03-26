@@ -27,7 +27,14 @@ public:
     void process(const u_char* data);
     //! Set output setters
     void setSetter(Setter<float>* packetLength, Setter<float>* typeOfService, Setter<float>* protocol,Setter<float>* Ttl );
+    void setGrid(Grid* g){
+        mGrid = g;
+        for(int i = 0; i< g->getOutputs()->size() ;i++){
+            std::cout << g->getOutputs()->at(i)->getName();
+        }
 
+        setSetter(g->getInputWithName("PacketLength"), g->getInputWithName("TypeOfService"), g->getInputWithName("Protocol"), g->getInputWithName("TTL"));
+    }
 private:
     Grid* mGrid;
     //! Output setter TypeOfService

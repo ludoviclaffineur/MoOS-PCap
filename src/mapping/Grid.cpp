@@ -29,6 +29,9 @@ Grid::~Grid(){
     for(int i = 0; i<mCells.size();i++){
         delete mCells[i];
     }
+    mCells.clear();
+    mInputs.clear();
+    mOutputs.clear();
     //delete mWebSocket;
 }
 
@@ -91,8 +94,10 @@ void Grid::compute(){
     }
     if (mActive) {
         std::vector<Cell*>::iterator i;
+        std::cout<<mCells.size();
         for (i= mCells.begin(); i!=mCells.end();i++ ) {
             (*i)->getOutput()->addToValue((*i)->getInput()->getExtrapolatedValue()* (*i)->getCoeff());
+            std::cout<< "Value Output cells "<< (*i)->getOutput()->getValue()<<std::endl;
         }
         std::vector<OutputsHandler*>::iterator j;
         for (j= mOutputs.begin(); j!=mOutputs.end();j++ ) {

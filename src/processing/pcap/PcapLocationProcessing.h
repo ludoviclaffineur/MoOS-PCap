@@ -39,7 +39,9 @@ public:
         setSetter(4, setSourceLattitude,setSourceLongitude,setDestinationLattitude,setDestinationLongitude);
     }
     static float haversine (LocationIp* home, LocationIp* server);
-
+    void setGrid(Grid* g){
+        mGrid = g;
+    }
 private:
     LocationIp** mIpLocations;
     Grid* mGrid;

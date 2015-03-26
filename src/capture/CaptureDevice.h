@@ -33,6 +33,13 @@ public:
     std::vector<std::string> getAllDescriptions(){
         return mDescriptions;
     }
+
+    void setGrid(Grid*g){
+        mGrid = g;
+        for(int i=0 ; i<mProcessings.size() ; i++){
+            mProcessings[i]->setGrid(g);
+        }
+    }
     virtual void setRow(int identifier){
 
     }

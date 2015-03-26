@@ -90,6 +90,7 @@ namespace view{
             void sendMidiPorts();
             void setMidiPort(int identifier);
             void trigGrid();
+            void setOutputsDevices();
             server      mServer;
             pthread_t mThread;
             websocketpp::connection_hdl mConnectionHandler;
@@ -114,7 +115,8 @@ namespace view{
             void setOutput(boost::property_tree::ptree pt);
             void setWeightForCell(std::string inputName, std::string outputName, float weight);
 
-            output::midi::MidiHandler* mMidiHandler;
+            output::midi::MidiHandler*     mMidiHandler;
+            output::midi::MidiNoteHandler* mMidiNoteHandler;
             bool isConfigured;
 
             void saveToXml();

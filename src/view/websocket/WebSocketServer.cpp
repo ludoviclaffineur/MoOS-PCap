@@ -227,7 +227,7 @@ void WebSocketServer::sendMidiPorts(){
 
 void WebSocketServer::setMidiPort(int identifier){
     mMidiHandler->setMidiPort(identifier);
-    MidiNoteHandler* MNH = new MidiNoteHandler(mMidiHandler);
+    mMidiNoteHandler = new MidiNoteHandler(mMidiHandler);
     mGrid->addOutput(new MidiControlChange(mMidiHandler,1, "Noise"));
     mGrid->addOutput(new MidiControlChange(mMidiHandler,5, "Feedback"));
     mGrid->addOutput(new MidiControlChange(mMidiHandler,6, "FreqEq", 131,0));
@@ -235,9 +235,9 @@ void WebSocketServer::setMidiPort(int identifier){
     mGrid->addOutput(new MidiControlChange(mMidiHandler,4, "Insert"));
     mGrid->addOutput(new MidiControlChange(mMidiHandler,3, "Modulation"));
     mGrid->addOutput(new MidiControlChange(mMidiHandler,7, "EqualBoost",0,64));
-    mGrid->addOutput(new MidiNoteVelocityHandler(MNH));
-    mGrid->addOutput(new MidiNoteKeyHandler(MNH));
-    mGrid->addOutput(new MidiNoteDurationHandler(MNH));
+    mGrid->addOutput(new MidiNoteVelocityHandler(mMidiNoteHandler));
+    mGrid->addOutput(new MidiNoteKeyHandler(mMidiNoteHandler));
+    mGrid->addOutput(new MidiNoteDurationHandler(mMidiNoteHandler));
 }
 
 void WebSocketServer::trigGrid(){
@@ -465,10 +465,6 @@ void WebSocketServer::sendInit(){
         action.put_child("parameters", child);
         sendMessage(action);
     }
-
-
-
-
 }
 
 void WebSocketServer::loadXml(){
@@ -481,10 +477,15 @@ void WebSocketServer::loadXml(){
         ia.template register_type<MidiNoteDurationHandler>();
         ia.template register_type<MidiNoteKeyHandler>();
         ia.template register_type<MidiNoteVelocityHandler>();
-        //Grid* TheG;
-        ia >> boost::serialization::make_nvp("Grid",mGrid);
-        std::cout << "NOMBRE SORTIES" << mGrid->getOutputs()->size() <<std::endl;
-                ifs.close();
+        Grid* TheG;
+        ia >> boost::serialization::make_nvp("Grid",TheG);
+        std::cout << "NOMBRE SORTIES" << TheG->getOutputs()->size() <<std::endl;
+        ifs.close();
+        //delete mGrid;
+        mGrid = TheG;
+        mCaptureDevice->setGrid(TheG);
+        setOutputsDevices();
+
         //ia >> TheG;
 }
 
@@ -499,6 +500,23 @@ void WebSocketServer::saveToXml(){
         oa.template register_type<MidiNoteVelocityHandler>();
         oa << boost::serialization::make_nvp("Grid",mGrid);
         ofs.close();
+
+}
+
+void WebSocketServer::setOutputsDevices(){
+        if(mDefaultOutput == CONSTANCES::MIDI){
+            std::cout<<"OK JE TOURNE et Y A " << mGrid->getOutputs()->size() <<std::endl;
+            for(int i = 0; i<mGrid->getOutputs()->size();i++){
+                    mGrid->getOutputs()->at(i)->setOutputDevice((void*)mMidiNoteHandler);
+                    mGrid->getOutputs()->at(i)->sendData();
+            }
+            mGrid->switchActive();
+            /*for(int i = 0; i<mGrid->getCells()->size();i++){
+                    mGrid->getCells()->at(i)->getOutput()->setOutputDevice((void*)mMidiNoteHandler);
+                    //mGrid->getCells()->at(i)->sendData();
+            }*/
+        }
+
 }
 
 void WebSocketServer::sendMessage(boost::property_tree::ptree ptree){

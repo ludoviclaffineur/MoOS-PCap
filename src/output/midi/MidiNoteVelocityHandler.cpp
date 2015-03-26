@@ -9,7 +9,7 @@
 #include "MidiNoteVelocityHandler.h"
 
 using namespace output::midi;
-MidiNoteVelocityHandler::MidiNoteVelocityHandler(): OutputsHandler("MidiVelocity"){
+MidiNoteVelocityHandler::MidiNoteVelocityHandler()/*: OutputsHandler("MidiVelocity")*/{
         mMinVelocity = mMaxVelocity = 0;
         mParameters.push_back(new Parameter<int>("MinVelocity", &mMinVelocity));
         mParameters.push_back(new Parameter<int>("MaxVelocity", &mMaxVelocity));
@@ -64,3 +64,6 @@ void MidiNoteVelocityHandler::updateConverter(){
 
 }
 
+void MidiNoteVelocityHandler::setOutputDevice(void* device){
+    mMidiNoteHandler =  (MidiNoteHandler*) device;
+}

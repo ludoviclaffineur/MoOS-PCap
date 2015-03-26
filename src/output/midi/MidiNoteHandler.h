@@ -39,6 +39,9 @@ public:
 
     static void* tSendMidi(void* midiNote);
 
+    MidiHandler* getMidiHandler(){
+            return mMidiHandler;
+    }
 
 private:
     MidiHandler* mMidiHandler;

@@ -13,6 +13,8 @@ using namespace output;
 
 OutputsHandler::OutputsHandler(){
     mValueBeforeSending = 0;
+    mParameters.push_back(new Parameter<std::string>("Name", &mName));
+    mParameters.push_back(new Parameter<int>("Identifier", &mId));
 }
 
 OutputsHandler::OutputsHandler(std::string n): mName(n){

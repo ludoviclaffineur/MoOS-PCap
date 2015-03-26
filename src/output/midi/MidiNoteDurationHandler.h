@@ -25,6 +25,7 @@ public:
     MidiNoteDurationHandler(MidiNoteHandler* mh);
     bool sendData();
     void setParameters(std::vector<std::string> ParameterList);
+    void setOutputDevice(void* device);
 private:
     MidiNoteHandler* mMidiNoteHandler;
     void setMinDuration(int minDuration);
