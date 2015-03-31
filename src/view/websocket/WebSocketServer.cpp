@@ -11,6 +11,7 @@
 #include "AppIncludes.h"
 
 #include "Parameter.h"
+#include "FileSystem.h"
 
 /*
 
@@ -33,6 +34,8 @@
 using namespace view;
 using namespace output::midi;
 using namespace output;
+
+
 void WebSocketServer::onMessage(WebSocketServer* ws, websocketpp::connection_hdl hdl, message_ptr msg){
     ws->mConnectionHandler = hdl;
     //std::cout<<"I am HERE" <<std::endl;
@@ -364,6 +367,7 @@ void WebSocketServer::setCaptureDevice(int identifier){
     if (mCaptureDevice == NULL) {
 
         mTypeOfCaptureDevice = identifier;
+        std::stringstream ss;
         switch (identifier) {
             case CONSTANCES::CaptureDeviceType::PCAP_HANDLER:
                 mCaptureDevice = new PcapHandler("!udp port 8000", mGrid);
@@ -379,7 +383,9 @@ void WebSocketServer::setCaptureDevice(int identifier){
                 //mCaptureDevice = new ReadWavFileHandler(mGrid,"/Users/ludoviclaffineur/Documents/MoOS/data/sinus440_1000.wav");
                 break;
             case CONSTANCES::CaptureDeviceType::ODBC_HANDLER:
-                //mCaptureDevice = new OdbcHandler(mGrid,"filedsn=/Users/ludoviclaffineur/Documents/MoOS/build/Release/psql.dsn");
+
+                ss<< "filedsn="<< utils::FileSystem::GetCurrentPath() << "/configuration/psql.dsn";
+                mCaptureDevice = new OdbcHandler(mGrid,ss.str().c_str());
                 break;
             case CONSTANCES::CaptureDeviceType::VIDEO_OPENCV_HANDLER:
                 //mCaptureDevice = new VideoOpenCvHandler(mGrid);

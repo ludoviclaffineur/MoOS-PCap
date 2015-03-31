@@ -22,7 +22,7 @@
 
 //#include "LeapMotionHandler.h"
 //#include "ReadWavFileHandler.h"
-//#include "OdbcHandler.h"
+#include "OdbcHandler.h"
 //#include "SerialHandler.h"
 #include "PcapHandler.h"
 #include "OscHandler.h"

@@ -78,10 +78,10 @@ ENDIF(PORTAUDIO_FOUND)
 SET (SOCI_LIBRARY /opt/local/lib/libsoci_core.a)
 SET (SOCI_odbc_PLUGIN /opt/local/lib/libsoci_odbc.a)
 	message ("ok SOCI found")
-        message ("${SOCI_LIBRARY}")
+        message ("${SOCI_LIBRARY} ${SOCI_INCLUDE_DIRS}")
         message("${SOCI_odbc_PLUGIN}")
-  SET(MOOS_INCLUDE_DIRS ${MOOS_INCLUDE_DIRS} "${SOCI_INCLUDE_DIRS}" )
-  SET(MOOS_LIBS ${MOOS_LIBS} "${SOCI_LIBRARY}")
+  SET(MOOS_INCLUDE_DIRS ${MOOS_INCLUDE_DIRS} "/opt/local/include/soci/")
+  SET(MOOS_LIBS ${MOOS_LIBS} "${SOCI_LIBRARY}" "${SOCI_odbc_PLUGIN}" "/usr/lib/libiodbc.dylib" )
 
 
 

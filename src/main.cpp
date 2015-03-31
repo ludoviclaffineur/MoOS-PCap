@@ -1,28 +1,22 @@
 //#include "Grid.h"
 #include "WebSocketServer.h"
 #include "server.hpp"
+#include "FileSystem.h"
 
-#include <boost/archive/xml_iarchive.hpp>
-#include <boost/archive/xml_oarchive.hpp>
 
-#include <boost/filesystem/operations.hpp>
-#include <boost/filesystem/path.hpp>
+
 
 using namespace mapping;
 using namespace view;
-namespace fs = boost::filesystem;
+
 
 
 int main(int argc, const char * argv[])
 {
-        fs::path full_path( fs::initial_path<fs::path>() );
-        full_path = fs::system_complete( fs::path( argv[0] ) );
-
-        std::cout << full_path.parent_path() << std::endl;
         std::stringstream ss;
         WebSocketServer* theWebSocketServer = new WebSocketServer(9002);
-
-        ss << full_path.parent_path().string() << "/www";
+        utils::FileSystem::SetCurrentPath(argv);
+        ss << utils::FileSystem::GetCurrentPath() << "/www";
 
         std::cout<<"string stream"<<ss.str()<<std::endl;
         theWebSocketServer->start();

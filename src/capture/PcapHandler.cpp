@@ -87,7 +87,7 @@ PcapHandler::PcapHandler(const char* filter, Grid* g){
     mGrid = g;
     mProcessings.push_back(new processing::pcap::PcapLocationProcessing(g));
     mProcessings.push_back(new processing::pcap::PcapIpProcessing(g));
-    mProcessings.push_back(new processing::pcap::PcapDnsProcessing());
+    //mProcessings.push_back(new processing::pcap::PcapDnsProcessing());
     mProcessings.push_back(new processing::pcap::PcapDhcpProcessing(g));
     //mProcessings.push_back(new PcapKissProcessing());
     //mProcessings.push_back(new PcapPasswordsProcessing());

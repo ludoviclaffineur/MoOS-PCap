@@ -94,10 +94,10 @@ void Grid::compute(){
     }
     if (mActive) {
         std::vector<Cell*>::iterator i;
-        std::cout<<mCells.size();
+        //std::cout<<mCells.size();
         for (i= mCells.begin(); i!=mCells.end();i++ ) {
             (*i)->getOutput()->addToValue((*i)->getInput()->getExtrapolatedValue()* (*i)->getCoeff());
-            std::cout<< "Value Output cells "<< (*i)->getOutput()->getValue()<<std::endl;
+            //std::cout<< "Value Output cells "<< (*i)->getCoeff()<<std::endl;
         }
         std::vector<OutputsHandler*>::iterator j;
         for (j= mOutputs.begin(); j!=mOutputs.end();j++ ) {

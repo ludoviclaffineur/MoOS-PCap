@@ -10,6 +10,7 @@
 #include <fstream>
 #include <math.h>
 #include "Constant.h"
+#include "FileSystem.h"
 
 using namespace output::granular_synth;
 #define NUM_SECONDS   (40)
@@ -95,7 +96,7 @@ GranularSyntheziser::GranularSyntheziser(){
     data->left_phase = data->right_phase = 0.0;
     /* Initialize library before making any other calls. */
     std::stringstream ss;
-    ss << CURRENT_PATH <<"/data/bouceAllSounds.wav";
+    ss << utils::FileSystem::GetCurrentPath() <<"/sounds/sound15.wav";
     loadWave(ss.str()); //15 OK
 
  //   mGrains.push_back(Grain(music, 2000 ,500));
