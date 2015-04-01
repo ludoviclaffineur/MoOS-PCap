@@ -114,14 +114,14 @@ namespace view{
             boost::property_tree::ptree getJsonRowsData();
             void setOutput(boost::property_tree::ptree pt);
             void setWeightForCell(std::string inputName, std::string outputName, float weight);
-
+            void addOutput();
             output::midi::MidiHandler*     mMidiHandler;
             output::midi::MidiNoteHandler* mMidiNoteHandler;
             bool isConfigured;
-
-            void saveToXml();
-            void loadXml();
-
+            void removeOutput(int identifier);
+            void saveToXml(std::string filename);
+            void loadXml(std::string filename);
+            void testOutput(int identifier);
             void sendPcapInterfaces(pcap_if_t* interfaces);
         };
 }

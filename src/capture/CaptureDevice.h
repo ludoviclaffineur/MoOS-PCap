@@ -31,7 +31,7 @@ public:
         return mDescription;
     }
     std::vector<std::string> getAllDescriptions(){
-        return mDescriptions;
+        return mDescriptions[0];
     }
 
     void setGrid(Grid*g){
@@ -47,7 +47,8 @@ protected:
     std::vector <processing::Processings*> mProcessings;
     Grid*       mGrid;
     std::string mDescription;
-    std::vector<std::string> mDescriptions;
+    std::vector<std::vector<std::string>> mDescriptions;
+    //std::vector<std::vector<std::string>> mSubDescriptions;
     //int mCurrentRow = 0;
 };
 

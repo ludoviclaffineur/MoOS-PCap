@@ -3,8 +3,7 @@
 @font-face{
     font-family: 'Fira Sans';
     src: url('eot/FiraSans-Regular.eot');
-    src: local('Fira Sans Regular'),
-         url('eot/FiraSans-Regular.eot') format('embedded-opentype'),
+    src: url('eot/FiraSans-Regular.eot') format('embedded-opentype'),
          url('woff/FiraSans-Regular.woff') format('woff'),
          url('ttf/FiraSans-Regular.ttf') format('truetype');
     font-weight: 300;
@@ -158,11 +157,13 @@ h1{
 }
 p{
 	font-size: 2em;
+    padding-top:7px;
 }
 .intro p{
 	width: 50%;
 	margin: 0 auto;
 	font-size: 1.5em;
+        padding:10px;
 }
 .section{
 	text-align:center;
@@ -398,12 +399,12 @@ p{
 
  .grid{
          background: #FFEEE2;
-         margin-top: 3%;
-         min-height: 85%;
+         margin-top: 1%;
+         min-height: 50%;
          width:auto;
          /*font-family: 'Fira Sans Light';*/
  }
- .sidebar {
+ .sidebar,.savebar, .loadbar {
          position: absolute;
          top: 14%;
          left: 10px;
@@ -416,23 +417,50 @@ p{
         padding:10px;
  }
 
- .sidebar p{
+ .sidebar p,.savebar p, .loadbar p{
          text-align:left;
          color: #111111;
          font-size: 90%;
  }
 
- .sidebar h2{
+ .sidebar h2, .savebar h2, .loadbar h2{
          color: #111111;
  }
 
+
+.menu-center {
+         /*position: absolute;*/
+         top: 14%;
+         left: auto;
+         width: 100%;
+         height: auto;
+         background:none;
+       /* background:#fff;*/
+
+        /*border: 2px solid #E5E5E5;*/
+        border-radius: 10px;
+        padding:10px;
+ }
+
+ .menu-center p{
+         text-align:left;
+         color: #333;
+         font-size: 100%;
+ }
+
+ .menu-center h2{
+     	font-size: 200%;
+         color: #222;
+ }
+
  .grid h1{
+     padding-top:7px;
          font-size: 300%;
          color: #111111;
  }
 
 
- .textArea input, .submit input, textarea {
+ .textArea input, .submit input, textarea,.testoutput input {
          font-family:'Fira Sans';
      padding: 9px;
      border: solid 1px #E5E5E5;
@@ -443,7 +471,7 @@ p{
      }
 
 
- .sidebar textarea {
+ .sidebar textarea, .savebar textarea, .loadbar textarea {
      width: 400px;
      max-width: 400px;
      height: 150px;
@@ -451,11 +479,16 @@ p{
      }
 
 .sidebar input:hover, .sidebartextarea:hover,
- .sidebar input:focus, .sidebar textarea:focus {
+ .sidebar input:focus, .sidebar textarea:focus,
+ .loadbar input:hover, .loadbartextarea:hover,
+  .loadbar input:focus, .loadbar textarea:focus,
+ .savebar input:hover, .savebartextarea:hover,
+  .savebar input:focus, .savebar textarea:focus
+  {
      border-color: #C9C9C9;
      }
 
- .sidebar .form label {
+ .sidebar .form label,.savebar .form label , .loadbar .form label{
      margin-left: 10px;
      color: #999999;
      }
@@ -470,8 +503,51 @@ p{
      color: #fff;
      margin-top:1em;
      right:0px;
-     float: right
+     float: right;
+ }
+
+ .testoutput input {
+        font-family:'Fira Sans';
+     width: auto;
+     padding: 9px 15px;
+     background: #fff;
+     border: solid 1px #19B2A5;
+     font-size: 14px;
+     color: #19B2A5;
+     margin-top:6px;
+     right:0px;
+     float: left;
+ }
+
+
+#remove{
+     position:absolute;
+     font-size: 10px;
+     margin:10px;
+     top : 0;
+     right:0;
+     color:#AAA;
+
+ }
+
+
+ .addbutton input {
+     font-family:'Fira Sans' bold;
+ padding: 9px;
+ border: solid 2px #19B2A5;
+ outline: 0;
+ background: #FFFFFF;
+ border-radius: 10px;
+
+     font-family:'Fira Sans';
+     width: auto;
+     padding: 9px 15px;
+     font-size: 13px;
+     color: #19B2A5;
+     margin-top:1em;
+     margin-bottom:2em;
      }
+
 
      .sidebar-right {
              position: absolute;

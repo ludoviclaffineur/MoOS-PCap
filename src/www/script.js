@@ -4,6 +4,8 @@ $(document).ready(function(){
         });
         //setGrid();
         $(".sidebar").hide();
+         $(".savebar").hide();
+         $(".loadbar").hide();
         var $body = $('#drawingGrid');
         $body.mousedown(function (evt) {
                 selectedWeight = selectWeight(evt);
@@ -71,6 +73,7 @@ function  showOutput(selectedOutput){
         $( ".sidebar" ).empty();
         var identifierO;
         if(i<keys.length){
+
                 for(var j =i;j<keys.length;j++){
                         if(keys[j] !== "Identifier" && keys[j] !== "OutputType"){
                                 $(".sidebar").append(
@@ -95,13 +98,51 @@ function  showOutput(selectedOutput){
                 }
                 $(".sidebar").append(
                         $("<p>").prop("class","submit").append(
-                                $("<input>").prop("type", "submit").click({id: identifierO},function(evt){ setOutput(evt.data.id); return false; })
+                                $("<input>").prop("type", "submit").prop("value", "OK").click({id: identifierO},function(evt){ setOutput(evt.data.id); return false; })
                         )
+                )
+                $(".sidebar").append(
+                        $("<p>").prop("class","testoutput").append(
+                                $("<input>").prop("type", "submit").prop("value", "Test").click({id: identifierO},function(evt){ testOutput(evt.data.id); return false; })
+                        )
+                )
+                $(".sidebar").append(
+                    $("<a>").prop("id", "remove").append("remove").click({id: identifierO},function(evt){ removeOutput(evt.data.id); return false; })
                 )
 
         }
 
 }
+
+function removeOutput(identifier){
+    var text = '{"action": "removeOutput",'+
+    '"parameters": {"identifier": "'+identifier+'"}}';
+    doSend(text);
+    $(".sidebar").bPopup().close();
+}
+
+function testOutput(identifier){
+       var newValuesInputs = $( ".sidebar" ).find("input");
+       var text = '{"action": "setOutput",'+
+       '"parameters": {"identifier": "'+identifier+'",';
+       //text = text+'"OutputType": "'+currentOutputType+'",';
+       for (var i = 0; i<newValuesInputs.length-1;i++){
+               text = text+'"'+ newValuesInputs[i].id +'": "'+newValuesInputs[i].value+'"';
+               if( i !=newValuesInputs.length-2){
+                       text = text+',';
+               }
+
+       }
+       text = text + "}}"
+       doSend(text);
+
+        text = '{"action": "testOutput",'+
+       '"parameters": {"identifier": "'+identifier+'"}}';
+       //text = text+'"OutputType": "'+currentOutputType+'",';
+       doSend(text);
+
+}
+
 
 function setOutput(identifier){
        var newValuesInputs = $( ".sidebar" ).find("input");
@@ -200,7 +241,7 @@ function setRow(id){
 }
 
 function setDescription(desc){
-        $(".grid h1").text(desc);
+        $(".grid h2").text(desc);
 }
 
 function redraw(){
@@ -296,7 +337,7 @@ function getContextHq(){
         }
 
         //Create canvas with the device resolution.
-        var myCanvas = createHiDPICanvas(800, 800);
+        var myCanvas = createHiDPICanvas(800, 150+sizeGrid*outputs.length);
 
         //Create canvas with a custom resolution.
         return myCanvas.getContext("2d");
@@ -358,6 +399,9 @@ function onMessage(evt) {
         }
         else  if(Json_Tree_Object["action"] == "setDescription"){
                 setDescription(Json_Tree_Object["parameters"]);
+        }
+        else  if(Json_Tree_Object["action"] == "sendSavedFiles"){
+                sendSavedFiles(Json_Tree_Object["parameters"]);
         }
         // lineChartData.datasets[0].data =Object.keys(obj).map(function(k) { return obj[k] });
 
@@ -499,7 +543,48 @@ function getSavedFiles(){
 var text = '{"action": "getSavedFiles",'+
            '"parameters": ""}';
 doSend(text);
+
 }
 
+function showSaveMenu(){
+    $(".savebar").bPopup();
+}
 
+function saveState(){
+    var filename =  $(".savebar #name")[0].value;
 
+    var text = '{"action": "saveState",'+
+           '"parameters": {"filename": "'+filename+'"}}';
+doSend(text);
+$(".savebar").bPopup().close();
+}
+
+function addOutput(){
+    var text = '{"action": "addOutput",'+
+           '"parameters": ""}';
+           doSend(text);
+}
+
+function sendSavedFiles(params){
+    var arrayWork =Object.keys(params).map(function(k) { return params[k] });
+    $(".loadbar").empty();
+     $(".loadbar").append(
+         $("<p>").append("Files availables")
+     )
+    for(var i=2; i<arrayWork.length;i++){
+        $(".loadbar").append(
+            $("<p>").append(
+                arrayWork[i]
+            ).click({filename: arrayWork[i]},function(evt){ loadXml(evt.data.filename); return false; })
+
+        )
+    }
+    $(".loadbar").bPopup();
+}
+
+function loadXml(filename){
+var text = '{"action": "loadXml",'+
+       '"parameters": {"filename": "'+filename+'"}}';
+       doSend(text);
+       $(".loadbar").bPopup().close();
+}

@@ -78,10 +78,24 @@ void Grid::addOutput(OutputsHandler* o){
     addComplementaryCells(o);
 }
 
+void Grid::addOutput(int pos, OutputsHandler* o){
+    o->setId(mCurrentOutputId++);
+    mOutputs.insert(mOutputs.begin()+pos, o);
+    addComplementaryCells(pos,o);
+
+}
+
+void Grid::addComplementaryCells(int posOutput, OutputsHandler *o){
+    for (int i=0;i< mInputs.size();i++){
+        mCells.insert(mCells.begin()+mInputs.size()*posOutput+i, new Cell(mInputs.at(i), o , 0.0));
+    }
+}
+
 void Grid::addComplementaryCells(OutputsHandler *o){
     for (int i=0;i< mInputs.size();i++){
         addCell(mInputs.at(i)->getName(), o->getName(), 0.0);
     }
+
 }
 
 void Grid::addCell(std::string inputName, std::string outputName, float corrCoeff){
@@ -183,4 +197,9 @@ void Grid::removeOutput(int id){
 
 }
 
+void Grid::testOutput(int identifier){
+    OutputsHandler* o = getOutputWithId(identifier);
+    o->setValue(0.0);
+    o->sendData();
+}
 

@@ -36,10 +36,13 @@ namespace mapping{
             Grid();
             ~Grid();
             void    addComplementaryCells(OutputsHandler* o);
+            void    addComplementaryCells(int posOutput, OutputsHandler* o);
             void    addInput(Input* i);
             void    addInput(std::string Name, float min, float max, float xOffset, float yOffset, int typeOfExtrapolation);
             void    addOutput(OutputsHandler* o);
+            void    addOutput(int pos, OutputsHandler* o);
             void    addCell(std::string inputName,std::string outputName, float corrCoeff);
+
             void    compute();
             Input*  getInputWithName(std::string n);
             OutputsHandler* getOutputWithName(std::string n);
@@ -58,6 +61,7 @@ namespace mapping{
             void    switchActive(){
                 mActive = !mActive;
             }
+            void testOutput(int identifier);
 
             //WebSocketServer* getWebSocketServer(){
               //  return mWebSocket;

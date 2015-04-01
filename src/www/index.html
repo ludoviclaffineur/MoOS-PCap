@@ -49,6 +49,7 @@
         <li data-menuanchor="outputs"><a href="#outputs">Outputs</a></li>
         <li data-menuanchor="outputsConfiguration"><a href="#outputsConfiguration">Outputs Configuration</a></li>
 	<li data-menuanchor="grid"><a href="#grid">Grid</a></li>
+        <li > <a onClick="showSaveMenu()">Save</a></li>
         <li > <a onClick="getSavedFiles()">Load</a></li>
 </ul>
 <div class=toggleButton >
@@ -114,8 +115,31 @@
                                 </p>
 
                         </div>
-                        <h1>Description</h1>
-                        <canvas id="drawingGrid" width="700" height="700"></canvas>
+                        <div class="savebar">
+                                <p class="textArea">
+                                    <label for="name">filename:</label>
+                                </p>
+                                <p class="textArea">
+                                      <input type="text" name="name" id="name" />
+                                </p>
+                                <p class="submit">
+                                        <input type="submit" value="save" onClick="saveState()">
+                                </p>
+
+                        </div>
+                        <div class="loadbar">
+                                <p class="textArea">
+                                    <label for="name">Saved configurations:</label>
+                                </p>
+
+
+                        </div>
+                        <div class="menu-center">
+                                <center>
+                                        <H2>CNA123 - Blyfameno-OL-2-atil-4- ame- pm545lkdmqlkdname-pm545lkdmqlkdnamepm5 - 12</H2>
+                                </center>
+                        </div>
+                        <canvas id="drawingGrid" width="700" height="auto"></canvas>
                         <div class="sidebar-right">
 				<div class="wrapper-demo">
 					<div id="dd" class="wrapper-dropdown-3" tabindex="1">
@@ -128,11 +152,16 @@
 					</div>
 				​</div>
                                 <p class="HP">
+
                                 <input type="image" src="./pictures/speaker.png" name="image" height="100" onClick="trigGrid()"/>
                                 <!--<input type="range"/> -->
 
                         </p>
+
                         </div>
+                        <p class="addbutton">
+                         <input type="submit" value="+ Add output" onClick="addOutput()"/>
+                 </p>
 		</div>
 
 	</div>

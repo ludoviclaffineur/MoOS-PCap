@@ -12,7 +12,7 @@
 
 #include "Parameter.h"
 #include "FileSystem.h"
-
+#include <dirent.h>
 /*
 
 |Opcode  | Meaning                             | Reference |
@@ -144,13 +144,31 @@ void WebSocketServer::dispatchRequest(message_ptr msg){
         //sendGrid();
     }
     else if (strcmp(pt.get<std::string>("action").c_str(), "getSavedFiles")==0){
-        //sendSavedFiles();
-            loadXml();
+          sendSavedFiles();
+           // loadXml();
 
-            sendGrid();
+            //
+    }
+    else if (strcmp(pt.get<std::string>("action").c_str(), "loadXml")==0){
+          loadXml(pt.get<std::string>("parameters.filename"));
+          sendGrid();
+
     }
     else if (strcmp(pt.get<std::string>("action").c_str(), "saveState")==0){
-        saveToXml();
+        saveToXml(pt.get<std::string>("parameters.filename"));
+        //sendGrid();
+    }
+    else if (strcmp(pt.get<std::string>("action").c_str(), "addOutput")==0){
+        addOutput();
+        sendGrid();
+        //sendGrid();
+    }
+    else if (strcmp(pt.get<std::string>("action").c_str(), "removeOutput")==0){
+        removeOutput(pt.get<int>("parameters.identifier"));
+        //sendGrid();
+    }
+    else if (strcmp(pt.get<std::string>("action").c_str(), "testOutput")==0){
+        testOutput(pt.get<int>("parameters.identifier"));
         //sendGrid();
     }
 }
@@ -231,13 +249,13 @@ void WebSocketServer::sendMidiPorts(){
 void WebSocketServer::setMidiPort(int identifier){
     mMidiHandler->setMidiPort(identifier);
     mMidiNoteHandler = new MidiNoteHandler(mMidiHandler);
-    mGrid->addOutput(new MidiControlChange(mMidiHandler,1, "Noise"));
-    mGrid->addOutput(new MidiControlChange(mMidiHandler,5, "Feedback"));
-    mGrid->addOutput(new MidiControlChange(mMidiHandler,6, "FreqEq", 131,0));
-    mGrid->addOutput(new MidiControlChange(mMidiHandler,2, "Resonnance",80,127));
-    mGrid->addOutput(new MidiControlChange(mMidiHandler,4, "Insert"));
-    mGrid->addOutput(new MidiControlChange(mMidiHandler,3, "Modulation"));
-    mGrid->addOutput(new MidiControlChange(mMidiHandler,7, "EqualBoost",0,64));
+    // mGrid->addOutput(new MidiControlChange(mMidiHandler,1, "Noise"));
+    // mGrid->addOutput(new MidiControlChange(mMidiHandler,5, "Feedback"));
+    // mGrid->addOutput(new MidiControlChange(mMidiHandler,6, "FreqEq", 131,0));
+    // mGrid->addOutput(new MidiControlChange(mMidiHandler,2, "Resonnance",80,127));
+    // mGrid->addOutput(new MidiControlChange(mMidiHandler,4, "Insert"));
+    // mGrid->addOutput(new MidiControlChange(mMidiHandler,3, "Modulation"));
+    // mGrid->addOutput(new MidiControlChange(mMidiHandler,7, "EqualBoost",0,64));
     mGrid->addOutput(new MidiNoteVelocityHandler(mMidiNoteHandler));
     mGrid->addOutput(new MidiNoteKeyHandler(mMidiNoteHandler));
     mGrid->addOutput(new MidiNoteDurationHandler(mMidiNoteHandler));
@@ -254,6 +272,33 @@ void WebSocketServer::sendDescription(){
     action.put("action", "setDescription");
     action.put("parameters", mCaptureDevice->getDescription());
     sendMessage(action);
+}
+
+void WebSocketServer::addOutput(){
+    static int currentValue=0;
+    switch (mDefaultOutput) {
+
+        case CONSTANCES::OSC:{
+            std::stringstream ss;
+            ss << "NewOSC" <<currentValue ++;
+            mGrid->addOutput(new OscHandler(ss.str(),"127.0.0.1","20000", "/osc", "f" ));
+            sendGrid();
+            break;
+        }
+        case CONSTANCES::MIDI:{
+
+            std::stringstream ss;
+            ss << "NewMidi" <<currentValue ++;
+            mGrid->addOutput(mGrid->getOutputs()->size()-3, new MidiControlChange(mMidiHandler,1, ss.str()));
+            break;
+
+        }
+        case CONSTANCES::GRANULAR_SYNTH:{
+        }
+        default:
+            break;
+    }
+
 }
 
 void WebSocketServer::sendGrid(){
@@ -473,8 +518,10 @@ void WebSocketServer::sendInit(){
     }
 }
 
-void WebSocketServer::loadXml(){
-        std::ifstream ifs("filename.xml");
+void WebSocketServer::loadXml(std::string filename){
+    std::stringstream ss;
+    ss<< utils::FileSystem::GetCurrentPath() << "/saves/"<< filename;
+        std::ifstream ifs(ss.str());
         assert(ifs.good());
         boost::archive::xml_iarchive ia(ifs);
 
@@ -495,8 +542,10 @@ void WebSocketServer::loadXml(){
         //ia >> TheG;
 }
 
-void WebSocketServer::saveToXml(){
-        std::ofstream ofs("filename.xml");
+void WebSocketServer::saveToXml(std::string filename){
+    std::stringstream ss;
+    ss<< utils::FileSystem::GetCurrentPath() << "/saves/" << filename << ".xml";
+        std::ofstream ofs(ss.str());
         assert(ofs.good());
         boost::archive::xml_oarchive oa(ofs);
         oa.template register_type<OscHandler>();
@@ -517,10 +566,6 @@ void WebSocketServer::setOutputsDevices(){
                     mGrid->getOutputs()->at(i)->sendData();
             }
             mGrid->switchActive();
-            /*for(int i = 0; i<mGrid->getCells()->size();i++){
-                    mGrid->getCells()->at(i)->getOutput()->setOutputDevice((void*)mMidiNoteHandler);
-                    //mGrid->getCells()->at(i)->sendData();
-            }*/
         }
 
 }
@@ -583,13 +628,50 @@ void* WebSocketServer::run(void* userData){
     return nullptr;
 }
 
+void WebSocketServer::testOutput(int identifier){
+    mGrid->testOutput(identifier);
+}
+
+void WebSocketServer::removeOutput(int identifier){
+    mGrid->removeOutput(identifier);
+    sendGrid();
+}
+
 void WebSocketServer::sendSavedFiles(){
- //  std::vector<std::string>* tab = SaveXml::listFiles("/save");
- //  for (int i = 0; i<tab->size(); i++) {
- //      std::cout<<tab->at(i)<<std::endl;
- //  }
- //  delete tab;
- //
+    using namespace std;
+    using boost::property_tree::ptree;
+    ptree child, action;
+    DIR *pdir = NULL; // remember, it's good practice to initialise a pointer to NULL!
+    stringstream ss;
+
+    ss << utils::FileSystem::GetCurrentPath() << "/saves/";
+       pdir = opendir (ss.str().c_str()); // "." will refer to the current directory
+       struct dirent *pent = NULL;
+
+       // I used the current directory, since this is one which will apply to anyone reading
+       // this tutorial~ If I said "C:\\" and you're on Linux, it may get a little confusing!
+       if (pdir == NULL) // if pdir wasn't initialised correctly
+       { // print an error message and exit the program
+           cout << "\nERROR! pdir could not be initialised correctly";
+           exit (3);
+       } // end if
+        int i=0;
+       while (pent = readdir (pdir)) // while there is still something in the directory to list
+       {
+           if (pent == NULL) // if pent has not been initialised correctly
+           { // print an error message, and exit the program
+               cout << "\nERROR! pent could not be initialised correctly";
+           }
+           // otherwise, it was initialised correctly. Let's print it on the console:
+           cout << pent->d_name << endl;
+           std::stringstream ss2;
+           ss2<< i++;
+           child.put(ss2.str(), pent->d_name);
+       }
+
+       action.put("action", "sendSavedFiles");
+       action.put_child("parameters", child);
+       sendMessage(action);
 }
 
 void WebSocketServer::stop(){
