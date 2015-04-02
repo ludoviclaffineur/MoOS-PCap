@@ -423,9 +423,29 @@ p{
          font-size: 90%;
  }
 
- .sidebar h2, .savebar h2, .loadbar h2{
+ .sidebar h2, .savebar h2{
          color: #111111;
  }
+
+ .loadbar h2{
+     font-size:100%;
+          color: #19B2A5;
+  }
+
+ .loadbar li{
+     font-size:90%;
+     display: block;
+     padding: 10px;
+     text-decoration: none;
+     color: #111111;
+
+     border-bottom: 1px solid #AAA;
+
+ }
+
+ .loadbar li:hover {
+          background: #fff;
+      }
 
 
 .menu-center {

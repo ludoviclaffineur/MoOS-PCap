@@ -569,11 +569,11 @@ function sendSavedFiles(params){
     var arrayWork =Object.keys(params).map(function(k) { return params[k] });
     $(".loadbar").empty();
      $(".loadbar").append(
-         $("<p>").append("Files availables")
-     )
+         $("<h2>").append("Files availables")
+     ).append($("<li>"))
     for(var i=2; i<arrayWork.length;i++){
         $(".loadbar").append(
-            $("<p>").append(
+            $("<li>").append(
                 arrayWork[i]
             ).click({filename: arrayWork[i]},function(evt){ loadXml(evt.data.filename); return false; })
 
