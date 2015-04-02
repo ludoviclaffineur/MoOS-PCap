@@ -16,13 +16,23 @@ OdbcHandler::OdbcHandler(Grid* g, std::string configFile):CaptureDevice(){
     mGrid = g;
     try
     {
+        std::cout<< configFile << std::endl;
         mSql = new soci::session(soci::odbc, configFile);
-        //mSql->set_log_stream(&std::cout);
+
+        mSql->set_log_stream(&std::cout);
 
     }
+    catch (soci::odbc_soci_error const& e)
+        {
+            std::cerr << "ODBC Error Code: " << e.odbc_error_code() << std::endl
+                 << "Native Error Code: " << e.native_error_code() << std::endl
+                 << "SOCI Message: " << e.what() << std::endl
+                 << "ODBC Message: " << e.odbc_error_message() << std::endl;
+        }
     catch (std::exception const &e)
     {
         std::cerr << "Error: " << e.what() <<'\n';
+
     }
     mCurrentRow = 0;
     //init();

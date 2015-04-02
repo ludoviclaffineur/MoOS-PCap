@@ -49,7 +49,7 @@ $(document).ready(function(){
         });
 });
 
-wsUri = "ws://127.0.0.1:9002"; var output;
+wsUri = "ws://127.0.0.1:12987"; var output;
 obj = new Object();
 colorLine = "#ccc" /*"#7E3027"*/
 colorPositive = "#19B2A5"

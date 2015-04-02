@@ -14,7 +14,7 @@ using namespace view;
 int main(int argc, const char * argv[])
 {
         std::stringstream ss;
-        WebSocketServer* theWebSocketServer = new WebSocketServer(9002);
+        WebSocketServer* theWebSocketServer = new WebSocketServer(12987);
         utils::FileSystem::SetCurrentPath(argv);
         ss << utils::FileSystem::GetCurrentPath() << "/www";
 
@@ -22,7 +22,7 @@ int main(int argc, const char * argv[])
         theWebSocketServer->start();
 
         std::cout<<"Lauching Web server... you can access at http://127.0.0.1"<<std::endl;
-        http::server::server s("0.0.0.0", "8080", ss.str());
+        http::server::server s("0.0.0.0", "12986", ss.str());
         s.run();
         std::cout<<"\nShuting down Web server..."<<std::endl;
         //delete theCaptureDevice;
