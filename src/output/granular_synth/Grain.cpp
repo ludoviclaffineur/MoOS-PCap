@@ -33,13 +33,8 @@ float Grain::getSample(){
         sample = 0.0f;
     }
     else{
-
-//        mCurrentPostion =0.0f;
-//        mInitPostion = rand()%(mAudioFile->size()-mDuration);
         done = true;
     }
     mCurrentPostion++;
-
     return sample;
-
 }

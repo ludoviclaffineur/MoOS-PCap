@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 
+
 #Nom du projet
 
 project(MOOS)
@@ -84,6 +85,9 @@ SET (SOCI_odbc_PLUGIN /opt/local/lib/libsoci_odbc.a)
   SET(MOOS_LIBS ${MOOS_LIBS} "${SOCI_LIBRARY}" "${SOCI_odbc_PLUGIN}" "/usr/lib/libiodbc.dylib" )
 
 
+
+
+#set(CMAKE_CXX_FLAGS "--sysroot ${CMAKE_OSX_SYSROOT} ${CMAKE_CXX_FLAGS}")
 
 #FIND_PACKAGE( LeapMotion)
 

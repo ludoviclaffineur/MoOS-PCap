@@ -64,16 +64,9 @@ mOscAddress(oscAddress),
 mOscTag(oscTag)
 {
     mIdController = idController;
-
     mValueBeforeSending = 0;
-
-
-
     mDistant = lo_address_new(mIpAddress.c_str(), mPort.c_str());
     mParamNumber = 0;
-    //mValueBeforeSending = 0;
-
-
     mOutputType = CONSTANCES::OSC;
     mParameters.push_back(new Parameter<std::string>("IPAddress", &mIpAddress));
     mParameters.push_back(new Parameter<int>("OutputType", &mOutputType));
@@ -102,12 +95,9 @@ bool OscHandler::sendData(){
         //printf("%f \n", mValueBeforeSending);
         return lo_send(mDistant,mOscAddress.c_str(), "if",mIdController,mValueBeforeSending);
     }
-
-
 }
 
 bool OscHandler::sendData(int paramNumber, float value){
-
     return lo_send(mDistant,mOscAddress.c_str(), "f",value);
 }
 

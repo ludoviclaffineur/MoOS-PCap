@@ -22,10 +22,9 @@ int patestCallback( const void *inputBuffer, void *outputBuffer,
                    PaStreamCallbackFlags statusFlags,
                    void *userData )
 {
-    /* Cast data passed through stream to our structure. */
+
     GranularSyntheziser* ptr = (GranularSyntheziser*) userData;
-    //paTestData *data = (paTestData*)userData;
-    //std::vector <float>* mu =  ( std::vector <float>*) userData;
+
     float *out = (float*)outputBuffer;
     unsigned int i;
     (void) inputBuffer; /* Prevent unused variable warning. */
@@ -36,38 +35,30 @@ int patestCallback( const void *inputBuffer, void *outputBuffer,
         *out++ = (float) ptr->data->right_phase;
         float sample = ptr->getSample();
         float reverbLevel = 0.2;
-        //sample = GranularSyntheziser::reverb(ptr->mAudioWave, sample, 100, reverbLevel);
         sample = GranularSyntheziser::echo(ptr->mAudioWave, sample, ptr->getDelay(), ptr->getDecay());
         sample = GranularSyntheziser::lowPassFilter(ptr->mAudioWave, sample, ptr->getCutoff());
         sample = GranularSyntheziser::lowPassFilter(ptr->mAudioWave, sample, ptr->getCutoff());
         ptr->mAudioWave->push_back(sample);
-        //std::cout<<sample<<std::endl;
         ptr->flushAudioWave();
 
         ptr->data->left_phase  = sample;
         ptr->data->right_phase = sample;
-        //
     }
-    //ptr->setDuration(ptr->getDuration()-5);
-
-
     return 0;
 }
 
 void GranularSyntheziser::setCutoff(float cutoff){
     mCutoff = cutoff;
 }
+
 float GranularSyntheziser::getCutoff(){
     return mCutoff;
 }
-
-
 
 void GranularSyntheziser::flushAudioWave(){
     if (mAudioWave->size()>=400*44.1){
         mAudioWave->erase(mAudioWave->begin()); //cost 15% CPU
     }
-
 }
 
 GranularSyntheziser::GranularSyntheziser(){
@@ -85,7 +76,7 @@ GranularSyntheziser::GranularSyntheziser(){
      music->push_back(a);
      //printf(" %f ", (float)byte);
      }*/
-    mInitPos = 0;
+    mInitPos    = 0;
     mOverlap    = 3000.0f;
     mPosition   = 0.0;
     mDecay      = 0.0f;
@@ -131,30 +122,26 @@ GranularSyntheziser::~GranularSyntheziser(){
 float GranularSyntheziser::getSample(){
     float sampleResult = 0.0f;
 
-    if(mGrains.size()==0 || mPosition++ > (mGrains[mGrains.size()-1]->mDuration+ mGrains[mGrains.size()-1]->mBlank- mOverlap)){
+    if(mGrains.size()==0 || mPosition++ > (mGrains[mGrains.size()-1]->mDuration + mGrains[mGrains.size()-1]->mBlank - mOverlap)){
         if(mDuration >mOverlap){
             mGrains.push_back(new Grain(music, mDuration, mBlank, mInitPos));
         }
         mPosition = 0.0f;
     }
-
     if (mGrains.size()!=0) {
         if (mGrains[0]->isDone()){
             //std::cout<<"DELETE"<<std::endl;
             delete *mGrains.begin();
             mGrains.erase(mGrains.begin());
         }
-
         for(int i =0; i<mGrains.size();i++) {
             sampleResult += mGrains[i]->getSample();
         }
-
     }
     else{
         sampleResult=  0.0f;
     }
     return sampleResult;
-    //return mGrains.front()->getSample();
 }
 
 float GranularSyntheziser::reverb(std::deque <float>* mAudioWave,float sample, float delay, float decay ){

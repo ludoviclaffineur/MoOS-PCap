@@ -40,9 +40,7 @@ public:
             mProcessings[i]->setGrid(g);
         }
     }
-    virtual void setRow(int identifier){
-
-    }
+    virtual void setRow(int identifier){}
 protected:
     std::vector <processing::Processings*> mProcessings;
     Grid*       mGrid;
