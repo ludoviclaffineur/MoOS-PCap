@@ -89,6 +89,8 @@ GranularSyntheziser::GranularSyntheziser(){
     mOverlap    = 3000.0f;
     mPosition   = 0.0;
     mDecay      = 0.0f;
+    mDuration   = 0.0f;
+    mBlank    = 0.0f;
     data = new paTestData;
 
     printf("PortAudio Test: output sawtooth wave.\n");
@@ -148,8 +150,8 @@ float GranularSyntheziser::getSample(){
     if (mGrains->size()!=0) {
         if (mGrains->at(0)->isDone()){
             //std::cout<<"DELETE"<<std::endl;
-            //delete *mGrains->begin();
-            //mGrains->erase(mGrains->begin());
+            delete *mGrains->begin();
+            mGrains->erase(mGrains->begin());
         }
         for(int i =0; i<mGrains->size();i++) {
             sampleResult += mGrains->at(i)->getSample();

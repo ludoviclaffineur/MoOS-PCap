@@ -18,7 +18,7 @@ Grain::Grain(std::vector<float>* audioFile, int duration,int blank, int initPos)
     mEnvelope = ENVELOPE::ATTACK;
     mAudioFile = audioFile;
     //std::cout<<initPos<<std::endl;
-    mInitPostion = (initPos + rand()%mWindowSize)%(audioFile->size()-mDuration);
+    mInitPostion = (initPos + rand()%mWindowSize)%(audioFile->size()-mDuration-mWindowSize);
     mBlank = blank;
     done = false;
     nbrSamplesFade = 20;
