@@ -9,7 +9,7 @@
 #include "GSDurationHandler.h"
 using namespace output::granular_synth;
 GSDurationHandler::GSDurationHandler(GranularSyntheziser* GS) : GSParametersHandler("GSDuration",GS){
-    //GS_MAX_DURATION = 4000;
+    GS_MAX_DURATION = 4000;
     //OutputsHandler::setName("GS_Duration");
 }
 

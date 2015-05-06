@@ -20,7 +20,7 @@ public:
     GSBlankHandler(GranularSyntheziser* GS);
     bool sendData ();
     void setParameters(std::vector<std::string> ParameterList);
-    const int GS_MAX_BLANK = 10000;
+    int GS_MAX_BLANK;
 private:
 
 };

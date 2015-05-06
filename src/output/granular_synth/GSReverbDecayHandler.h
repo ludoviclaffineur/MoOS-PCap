@@ -22,7 +22,7 @@ public:
     GSReverbDecayHandler(GranularSyntheziser* GS);
     bool sendData ();
     void setParameters(std::vector<std::string> ParameterList);
-    const float GS_MAX_DECAY = 0.5f;
+    float GS_MAX_DECAY;
 private:
 
 };

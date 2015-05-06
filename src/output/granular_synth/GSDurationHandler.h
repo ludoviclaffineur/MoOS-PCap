@@ -20,7 +20,7 @@ public:
     GSDurationHandler(GranularSyntheziser* GS);
     bool sendData ();
     void setParameters(std::vector<std::string> ParameterList);
-    const int GS_MAX_DURATION = 4000;
+    int GS_MAX_DURATION;
 private:
 
 };

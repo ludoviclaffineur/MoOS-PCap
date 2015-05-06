@@ -21,6 +21,7 @@ Grain::Grain(std::vector<float>* audioFile, int duration,int blank, int initPos)
     mInitPostion = (initPos + rand()%mWindowSize)%(audioFile->size()-mDuration);
     mBlank = blank;
     done = false;
+    nbrSamplesFade = 20;
 }
 
 float Grain::getSample(){

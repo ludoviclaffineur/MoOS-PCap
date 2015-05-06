@@ -11,7 +11,7 @@
 using namespace output::granular_synth;
 
 GSReverbDecayHandler::GSReverbDecayHandler(GranularSyntheziser* GS) : GSParametersHandler("GSReverbDecay",GS){
-    //GS_MAX_DURATION = 4000;
+    GS_MAX_DECAY = 0.5f;
     //OutputsHandler::setName("GS_Duration");
 }
 

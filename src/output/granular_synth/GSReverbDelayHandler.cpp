@@ -10,7 +10,7 @@
 using namespace output::granular_synth;
 
 GSReverbDelayHandler::GSReverbDelayHandler(GranularSyntheziser* GS) : GSParametersHandler("GSReverbDelay",GS){
-    //GS_MAX_DURATION = 4000;
+    GS_MAX_DELAY = 200;
     //OutputsHandler::setName("GS_Duration");
 }
 

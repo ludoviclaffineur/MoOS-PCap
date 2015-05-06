@@ -11,7 +11,7 @@
 using namespace output::granular_synth;
 
 GSOverlapHandler::GSOverlapHandler(GranularSyntheziser* GS) : GSParametersHandler("GSOverlap",GS){
-    //GS_MAX_DURATION = 4000;
+    GS_MAX_OVERLAP = 4000;
     //OutputsHandler::setName("GS_Duration");
 }
 

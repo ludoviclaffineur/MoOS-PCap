@@ -20,7 +20,7 @@ public:
     GSOverlapHandler(GranularSyntheziser* GS);
     bool sendData ();
     void setParameters(std::vector<std::string> ParameterList);
-    const int GS_MAX_OVERLAP = 4000;
+    int GS_MAX_OVERLAP;
 private:
     
 };

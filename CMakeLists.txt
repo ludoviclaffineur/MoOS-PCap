@@ -13,6 +13,7 @@ SET(BOOST_MIN_VERSION "1.53.0")
 FIND_PACKAGE(Liblo)
 IF(LIBLO_FOUND)
 	message ("ok LIBLO found")
+	message ("${LIBLO_INCLUDE_DIR}")
         SET(MOOS_INCLUDE_DIRS ${MOOS_INCLUDE_DIRS} "${LIBLO_INCLUDE_DIR}")
         SET(MOOS_LIBS ${MOOS_LIBS} "${LIBLO_LIBRARIES}")
 ELSE()
@@ -39,8 +40,8 @@ ENDIF(PCAP_FOUND)
 
 
 
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fpermissive")
-
+#SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fpermissive")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++0x -fpermissive -Wno-constexpr-not-const")
 
 
 FIND_PACKAGE( Boost REQUIRED thread system serialization filesystem)
@@ -76,13 +77,13 @@ ENDIF(PORTAUDIO_FOUND)
 
 #FIND_PACKAGE( Soci)
 
-SET (SOCI_LIBRARY /opt/local/lib/libsoci_core.a)
-SET (SOCI_odbc_PLUGIN /opt/local/lib/libsoci_odbc.a)
-	message ("ok SOCI found")
-        message ("${SOCI_LIBRARY} ${SOCI_INCLUDE_DIRS}")
-        message("${SOCI_odbc_PLUGIN}")
-  SET(MOOS_INCLUDE_DIRS ${MOOS_INCLUDE_DIRS} "/opt/local/include/soci/")
-  SET(MOOS_LIBS ${MOOS_LIBS} "${SOCI_LIBRARY}" "${SOCI_odbc_PLUGIN}" "/usr/lib/libiodbc.dylib" )
+#SET (SOCI_LIBRARY /opt/local/lib/libsoci_core.a)
+#SET (SOCI_odbc_PLUGIN /opt/local/lib/libsoci_odbc.a)
+#	message ("ok SOCI found")
+#        message ("${SOCI_LIBRARY} ${SOCI_INCLUDE_DIRS}")
+#        message("${SOCI_odbc_PLUGIN}")
+#  SET(MOOS_INCLUDE_DIRS ${MOOS_INCLUDE_DIRS} "/opt/local/include/soci/")
+#  SET(MOOS_LIBS ${MOOS_LIBS} "${SOCI_LIBRARY}" "${SOCI_odbc_PLUGIN}" "/usr/lib/libiodbc.dylib" )
 
 
 

@@ -10,7 +10,7 @@
 
 using namespace output::granular_synth;
 GSLowPassCutoffHandler::GSLowPassCutoffHandler(GranularSyntheziser* GS) : GSParametersHandler("GSLowPassCutoff",GS){
-    //GS_MAX_DURATION = 4000;
+    GS_MAX_Cutoff = 20000;
     //OutputsHandler::setName("GS_Duration");
 }
 

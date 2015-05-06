@@ -21,7 +21,7 @@ public:
     GSLowPassCutoffHandler(GranularSyntheziser* GS);
     bool sendData ();
     void setParameters(std::vector<std::string> ParameterList);
-    const int GS_MAX_Cutoff = 20000;
+    int GS_MAX_Cutoff;
 private:
 
 };

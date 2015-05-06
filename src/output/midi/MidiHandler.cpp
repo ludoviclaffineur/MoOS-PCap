@@ -26,13 +26,13 @@ MidiHandler::MidiHandler(){
 
     // Check inputs.
     // RtMidiOut constructor
-    try {
+    //try {
         mMidiOut = new RtMidiOut();
-    }
-    catch ( RtMidiError &error ) {
-        error.printMessage();
-        exit( EXIT_FAILURE );
-    }
+    //}
+    //catch ( RtMidiError &error ) {
+   //     error.printMessage();
+       // exit( EXIT_FAILURE );
+    //}
     //selectPort();
 }
 
@@ -47,13 +47,13 @@ void MidiHandler::selectPort(){
     nPorts = mMidiOut->getPortCount();
     std::cout << "\nThere are " << nPorts << " MIDI output ports available.\n";
     for ( unsigned int i=0; i<nPorts; i++ ) {
-        try {
+//        try {
             portName = mMidiOut->getPortName(i);
-        }
-        catch (RtMidiError &error) {
-            error.printMessage();
+//        }
+//        catch (RtMidiError &error) {
+  //          error.printMessage();
             //~MidiHandler();
-        }
+//        }
         std::cout << "  Output Port #" << i+1 << ": " << portName << '\n';
     }
     std::cout << '\n' << "Select the port to conect: ";
@@ -72,13 +72,13 @@ std::string* MidiHandler::getPorts(){
     nPorts = mMidiOut->getPortCount();
     std::string* portName = new std::string[nPorts];
     for ( unsigned int i=0; i<nPorts; i++ ) {
-        try {
+ //       try {
             portName[i] = mMidiOut->getPortName(i);
-        }
-        catch (RtMidiError &error) {
-            error.printMessage();
+//        }
+//        catch (RtMidiError &error) {
+   //         error.printMessage();
             //~MidiHandler();
-        }
+     //   }
 
     }
     return portName;

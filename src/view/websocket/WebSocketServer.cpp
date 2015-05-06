@@ -429,8 +429,8 @@ void WebSocketServer::setCaptureDevice(int identifier){
                 break;
             case CONSTANCES::CaptureDeviceType::ODBC_HANDLER:
 
-                ss<< "filedsn="<< utils::FileSystem::GetCurrentPath() << "/configuration/psql.dsn";
-                mCaptureDevice = new OdbcHandler(mGrid,ss.str().c_str());
+                //ss<< "filedsn="<< utils::FileSystem::GetCurrentPath() << "/configuration/psql.dsn";
+                //mCaptureDevice = new OdbcHandler(mGrid,ss.str().c_str());
                 break;
             case CONSTANCES::CaptureDeviceType::VIDEO_OPENCV_HANDLER:
                 //mCaptureDevice = new VideoOpenCvHandler(mGrid);
@@ -525,11 +525,11 @@ void WebSocketServer::loadXml(std::string filename){
         assert(ifs.good());
         boost::archive::xml_iarchive ia(ifs);
 
-        ia.template register_type<OscHandler>();
-        ia.template register_type<MidiControlChange>();
-        ia.template register_type<MidiNoteDurationHandler>();
-        ia.template register_type<MidiNoteKeyHandler>();
-        ia.template register_type<MidiNoteVelocityHandler>();
+        ia.register_type<OscHandler>();
+        ia.register_type<MidiControlChange>();
+        ia.register_type<MidiNoteDurationHandler>();
+        ia.register_type<MidiNoteKeyHandler>();
+        ia.register_type<MidiNoteVelocityHandler>();
         Grid* TheG;
         ia >> boost::serialization::make_nvp("Grid",TheG);
         std::cout << "NOMBRE SORTIES" << TheG->getOutputs()->size() <<std::endl;
@@ -548,11 +548,11 @@ void WebSocketServer::saveToXml(std::string filename){
         std::ofstream ofs(ss.str());
         assert(ofs.good());
         boost::archive::xml_oarchive oa(ofs);
-        oa.template register_type<OscHandler>();
-        oa.template register_type<MidiControlChange>();
-        oa.template register_type<MidiNoteDurationHandler>();
-        oa.template register_type<MidiNoteKeyHandler>();
-        oa.template register_type<MidiNoteVelocityHandler>();
+        oa.register_type<OscHandler>();
+        oa.register_type<MidiControlChange>();
+        oa.register_type<MidiNoteDurationHandler>();
+        oa.register_type<MidiNoteKeyHandler>();
+        oa.register_type<MidiNoteVelocityHandler>();
         oa << boost::serialization::make_nvp("Grid",mGrid);
         ofs.close();
 

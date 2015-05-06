@@ -10,7 +10,7 @@
 
 using namespace output::granular_synth;
 GSBlankHandler::GSBlankHandler(GranularSyntheziser* GS) : GSParametersHandler("GSBlank",GS){
-    //GS_MAX_DURATION = 4000;
+    GS_MAX_BLANK = 10000;
     //OutputsHandler::setName("GS_Duration");
 }
 

@@ -31,15 +31,16 @@ MidiControlChange::MidiControlChange(MidiHandler* mh, std::string name): Outputs
     mParameters.push_back(new Parameter<unsigned short>("MaxCCValue", &mMaxMidi));
 }
 
-MidiControlChange::MidiControlChange(MidiHandler* mh, int controller, std::string name,int midiMin, int midiMax): MidiControlChange(mh,controller,name){
-
+MidiControlChange::MidiControlChange(MidiHandler* mh, int controller, std::string name,int midiMin, int midiMax){
+    MidiControlChange(mh,controller,name);
     mConverter = new Converter(Converter::TypeOfExtrapolation::LINEAR, 0.0,1.0,midiMin, midiMax);
     mMinMidi = midiMin;
     mMaxMidi = midiMax;
 
 }
 
-MidiControlChange::MidiControlChange(MidiHandler* mh, int controller,std::string name): MidiControlChange(mh,name){
+MidiControlChange::MidiControlChange(MidiHandler* mh, int controller,std::string name){
+    MidiControlChange(mh,name);
     mController = controller;
 }
 

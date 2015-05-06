@@ -35,14 +35,18 @@ int patestCallback( const void *inputBuffer, void *outputBuffer,
         *out++ = (float) ptr->data->right_phase;
         float sample = ptr->getSample();
         float reverbLevel = 0.2;
-        sample = GranularSyntheziser::echo(ptr->mAudioWave, sample, ptr->getDelay(), ptr->getDecay());
-        sample = GranularSyntheziser::lowPassFilter(ptr->mAudioWave, sample, ptr->getCutoff());
-        sample = GranularSyntheziser::lowPassFilter(ptr->mAudioWave, sample, ptr->getCutoff());
-        ptr->mAudioWave->push_back(sample);
-        ptr->flushAudioWave();
+ //       sample = GranularSyntheziser::echo(ptr->mAudioWave, sample, ptr->getDelay(), ptr->getDecay());
+//        sample = GranularSyntheziser::lowPassFilter(ptr->mAudioWave, sample, ptr->getCutoff());
+//        sample = GranularSyntheziser::lowPassFilter(ptr->mAudioWave, sample, ptr->getCutoff());
+        //ptr->mAudioWave->push_back(sample);
+        //ptr->flushAudioWave();
 
         ptr->data->left_phase  = sample;
         ptr->data->right_phase = sample;
+        if(sample !=0.0f){
+            //std::cout<<sample <<std::endl;
+        }
+
     }
     return 0;
 }
@@ -59,6 +63,7 @@ void GranularSyntheziser::flushAudioWave(){
     if (mAudioWave->size()>=400*44.1){
         mAudioWave->erase(mAudioWave->begin()); //cost 15% CPU
     }
+    mAudioWave->push_back(0);
 }
 
 GranularSyntheziser::GranularSyntheziser(){
@@ -68,8 +73,12 @@ GranularSyntheziser::GranularSyntheziser(){
     //mEnvelope = 0;
     //std::ifstream file(s, std::ifstream::in);
     music = new std::vector <float>();
+    music->push_back(0);
     mAudioWave = new std::deque <float>();
-    //char byte;
+    mAudioWave->push_back(0);
+    mGrains = new std::vector<Grain*>();
+    mGrains->push_back(new Grain(music, 0, 0, 0));
+ //char byte;
     /* while (file.good()) {
      byte = file.get();
      double a =((float)byte/128.0f);
@@ -120,27 +129,37 @@ GranularSyntheziser::~GranularSyntheziser(){
 }
 
 float GranularSyntheziser::getSample(){
+	/*static int i=0;
     float sampleResult = 0.0f;
+	sampleResult = music->at(i);
+    i++;
 
-    if(mGrains.size()==0 || mPosition++ > (mGrains[mGrains.size()-1]->mDuration + mGrains[mGrains.size()-1]->mBlank - mOverlap)){
+    if(i== music->size() ){
+        i=0;
+    }*/
+
+    float sampleResult = 0.0f;
+    if(mGrains->size()==0 || mPosition++ > (mGrains->at(mGrains->size()-1)->mDuration + mGrains->at(mGrains->size()-1)->mBlank - mOverlap)){
         if(mDuration >mOverlap){
-            mGrains.push_back(new Grain(music, mDuration, mBlank, mInitPos));
+            mGrains->push_back(new Grain(music, mDuration, mBlank, mInitPos));
         }
         mPosition = 0.0f;
     }
-    if (mGrains.size()!=0) {
-        if (mGrains[0]->isDone()){
+    if (mGrains->size()!=0) {
+        if (mGrains->at(0)->isDone()){
             //std::cout<<"DELETE"<<std::endl;
-            delete *mGrains.begin();
-            mGrains.erase(mGrains.begin());
+            //delete *mGrains->begin();
+            //mGrains->erase(mGrains->begin());
         }
-        for(int i =0; i<mGrains.size();i++) {
-            sampleResult += mGrains[i]->getSample();
+        for(int i =0; i<mGrains->size();i++) {
+            sampleResult += mGrains->at(i)->getSample();
         }
     }
     else{
         sampleResult=  0.0f;
     }
+    //std::cout<<sampleResult<<std::endl;
+
     return sampleResult;
 }
 
@@ -175,7 +194,8 @@ float GranularSyntheziser::echo(std::deque <float>* mAudioWave,float sample, flo
 
 
 bool GranularSyntheziser::loadWave(std::string path){
-    std::ifstream myfile(path);
+   /* std::ifstream myfile(path);
+    std::cout<< path << std::endl;
     if (myfile.is_open())
     {
         int sample = 0;
@@ -190,6 +210,7 @@ bool GranularSyntheziser::loadWave(std::string path){
             else{
                 sample+= (short)(lbyte<<8);
                 //mAudioWave.push_back((sample));
+                //std::cout<< (float)(sample)/(float)INT16_MAX <<std::endl;
                 music->push_back((float)(sample)/(float)INT16_MAX);
             }
             i++;
@@ -200,7 +221,42 @@ bool GranularSyntheziser::loadWave(std::string path){
     else {
         std::cout << "Unable to open file";
         return false;
+    }*/
+    FILE *fp;
+    fp = fopen(path.c_str(),"rb");
+    if (fp == NULL){
+        std::cout<<"path fichier faux"<<std::endl;
+        return false;
     }
+    fread(wh.riff, 4, 1, fp);
+    fread(&wh.size, 4, 1, fp);
+    fread(wh.wave,  4, 1, fp);
+    fread(wh.fmt, 4  , 1, fp);
+    fread(&wh.length, 4,1,fp);
+    fread(&wh.encoding, 2,1,fp);
+    fread(&wh.channels, 2,1,fp);
+    fread(&wh.frequency, 4,1,fp);
+    fread(&wh.byterate, 4,1,fp);
+    fread(&wh.block_align, 2,1,fp);
+    fread(&wh.bits_per_samples, 2,1,fp);
+    fread(wh.data, 4, 1, fp);
+    fread(&wh.data_size,4,1,fp);
+    wh.NumSamples= ((wh.data_size*8)/wh.bits_per_samples)/wh.channels;
+    //mSound = new float[wh.NumSamples];
+    int count = 0;
+
+    short int b = 0;
+    while(count <wh.NumSamples){
+        fread(&b,1,2,fp);
+        music->push_back((b)/(float)INT16_MAX);
+        //mSound[count]= (b/(float)INT16_MAX);
+        if(wh.channels==2){
+            fread(&b,1,2,fp);
+        }
+
+        count++;
+    }
+    return true;
 }
 
 void GranularSyntheziser::setDecay(float decay){

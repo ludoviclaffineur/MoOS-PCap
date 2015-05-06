@@ -38,7 +38,7 @@ public:
     };
 private:
     //RtMidiIn  *mMidiin = 0;
-    RtMidiOut *mMidiOut = 0;
+    RtMidiOut *mMidiOut;
     void selectPort();
 
 

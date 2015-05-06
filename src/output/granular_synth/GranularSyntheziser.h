@@ -53,7 +53,7 @@ public:
     float getSample();
     std::vector <float>* music;
     std::deque <float>* mAudioWave;
-    std::vector <Grain*>mGrains ;
+    std::vector <Grain*>* mGrains ;
     void    setCutoff(float cutoff);
     float   getCutoff();
     inline void flushAudioWave();
@@ -74,6 +74,23 @@ private:
     PaStream *stream;
 
     bool loadWave(std::string path);
+    struct wave_header {
+            char riff[4];
+            uint_least32_t size;
+            char wave[4];
+            char fmt[4];
+            uint_least32_t length;
+            uint_least16_t encoding;
+            uint_least16_t channels;
+            uint_least32_t frequency;
+            uint_least32_t byterate;
+            uint_least16_t block_align;
+            uint_least16_t bits_per_samples;
+            char data[4];
+            uint_least32_t data_size;
+            int NumSamples;
+
+    } wh;
 };
 
 }

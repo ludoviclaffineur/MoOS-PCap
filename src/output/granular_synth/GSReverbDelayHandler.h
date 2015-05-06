@@ -19,7 +19,7 @@ public:
     GSReverbDelayHandler(GranularSyntheziser* GS);
     bool sendData ();
     void setParameters(std::vector<std::string> ParameterList);
-    const float GS_MAX_DELAY = 200;
+    float GS_MAX_DELAY;
 private:
 
 };

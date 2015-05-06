@@ -56,7 +56,7 @@ void PcapDnsProcessing::process(const u_char *data){
             token = token.substr(token.find_last_of('.')+1,token.length());
 
 
-            if (std::strcmp(token.c_str(), "facebook") ==0) {
+            /*if (std::strcmp(token.c_str(), "facebook") ==0) {
                 std::cout<<"Facebook"<<std::endl;
                 lo_send(mOscIpAddress, "/facebook", "i", rand());
             }
@@ -83,7 +83,7 @@ void PcapDnsProcessing::process(const u_char *data){
             else if (std::strcmp(token.c_str(), "instagram") ==0) {
                 std::cout<<"instagram"<<std::endl;
                 lo_send(mOscIpAddress, "/facebook", "i", rand());
-            }
+            }*/
             std::cout<< "FINAL = " <<token<<std::endl;
             DnsClient* client=clientExists(ipadd);
             if (!client) {

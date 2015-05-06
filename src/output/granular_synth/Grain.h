@@ -29,7 +29,7 @@ namespace granular_synth{
             int mDuration;
             int mCurrentPostion;
             int mInitPostion;
-            const int nbrSamplesFade = 20;
+            int nbrSamplesFade;
             std::vector<float>* mAudioFile;
             bool isDone(){
                 return done;
