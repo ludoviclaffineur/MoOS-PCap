@@ -66,7 +66,7 @@ float Converter::extrapolate(float inputValue){
 
 float Converter::linear(float inputValue){
     float beta = mYMinValue - (mXMinValue*(mYMaxValue-mYMinValue)/(mXMaxValue-mXMinValue));
-    float alpha =(mYMaxValue-mYMinValue)/(mXMaxValue-mXMinValue);
+    float alpha =(mYMaxValue - mYMinValue)/(mXMaxValue-mXMinValue);
     return (alpha*inputValue + beta);
 }
 

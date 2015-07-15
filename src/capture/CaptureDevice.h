@@ -17,6 +17,15 @@
 #include <string.h>
 namespace capture{
 using namespace mapping;
+//! Capture device class. This class is the mother of all the capture devices
+
+/**
+  All class have to inherit this class.
+@code
+    CaptureDevice = new ChildCapture();
+    CaptureDevice->init();
+@endcode
+*/
 class CaptureDevice{
 public:
 

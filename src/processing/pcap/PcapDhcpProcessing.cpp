@@ -22,13 +22,17 @@ void PcapDhcpProcessing::process (const u_char* data){
     ih = (ip_header *) (data + 14);
     if (ih->proto == 17){
         udp_header* uh = (udp_header*)(data + 14 + sizeof(ip_header) - sizeof(u_int));
-        //printf("DEST PORT = %d \n", uh->dport);
-        if (ntohs(uh->dport) == 68){
+        //  printf("DEST PORT = %d \n", ntohs(uh->dport));
+        if (ntohs(uh->dport) == 67){
+            printf("DEST PORT = %d \n", ntohs(uh->dport));
             mInput->setValue(1);
         }
         else{
             mInput->setValue(0);
         }
+    }
+    else{
+        //mInput->setValue(0);
     }
 
 }

@@ -20,7 +20,7 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 
-//#include "LeapMotionHandler.h"
+#include "LeapMotionHandler.h"
 //#include "ReadWavFileHandler.h"
 #include "OdbcHandler.h"
 //#include "SerialHandler.h"

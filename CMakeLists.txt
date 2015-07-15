@@ -85,12 +85,16 @@ SET (SOCI_odbc_PLUGIN /opt/local/lib/libsoci_odbc.a)
   SET(MOOS_LIBS ${MOOS_LIBS} "${SOCI_LIBRARY}" "${SOCI_odbc_PLUGIN}" "/usr/lib/libiodbc.dylib" )
 
 
+  SET(MOOS_INCLUDE_DIRS ${MOOS_INCLUDE_DIRS} "/opt/local/include/")
+  SET(MOOS_LIBS ${MOOS_LIBS} "/opt/local/lib/libLeap.dylib" )
+
+
 
 
 #set(CMAKE_CXX_FLAGS "--sysroot ${CMAKE_OSX_SYSROOT} ${CMAKE_CXX_FLAGS}")
 
 #FIND_PACKAGE( LeapMotion)
-
+#
 #IF(LeapMotion_INCLUDE_DIR)
 #	message ("ok LeapMotion found")
 #        message ("${LeapMotion_LIBRARY_STATIC}")
@@ -112,7 +116,7 @@ include_directories(
         "${PROJECT_SOURCE_DIR}/src/output/midi"
         "${PROJECT_SOURCE_DIR}/src/processing/"
         "${PROJECT_SOURCE_DIR}/src/processing/pcap/"
-        "${PROJECT_SOURCE_DIR}/src/processing/leapmotion/"
+        "${PROJECT_SOURCE_DIR}/src/processing/leap/"
         "${PROJECT_SOURCE_DIR}/src/utils/"
         "${PROJECT_SOURCE_DIR}/src/view/"
         "${PROJECT_SOURCE_DIR}/src/view/webserver"

@@ -422,7 +422,7 @@ void WebSocketServer::setCaptureDevice(int identifier){
                // mCaptureDevice = new SerialHandler(mGrid, "/dev/tty.usbmodem1411", 115200);
                 break;
             case CONSTANCES::CaptureDeviceType::LEAPMOTION_HANDLER:
-                //mCaptureDevice = new capture::LeapMotionHandler(mGrid);
+                mCaptureDevice = new LeapMotionHandler(mGrid);
                 break;
             case CONSTANCES::CaptureDeviceType::READWAV_HANDLER:
                 //mCaptureDevice = new ReadWavFileHandler(mGrid,"/Users/ludoviclaffineur/Documents/MoOS/data/sinus440_1000.wav");

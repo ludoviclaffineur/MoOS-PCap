@@ -37,7 +37,12 @@ bool Input::compareName(std::string n){
 
 void Input::setValue(float value){
     mValue = mConverter->extrapolate(value);
-    //std::cout<<"Converted Value"<< _Value<< std::endl;
+    if(mValue>1){
+        mValue = 1;
+    }
+    if(mValue < 0){
+        mValue = 0;
+    }
 }
 
 float Input::getExtrapolatedValue(){
