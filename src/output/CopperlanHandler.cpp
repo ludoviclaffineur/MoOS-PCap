@@ -114,10 +114,25 @@ void CopperlanHandler::addOutput(std::string name){
 
 void CopperlanHandler::removeOutput(std::string name){
     //CPNS::char8* nameutf8(name);
+    /*std::vector<CPNS::IOutput*>::iterator iter = m_pOutputs.begin();
+    for(int i=0 ; i<m_pOutputs.size();i++, iter++){
+        if (name.compare(m_pOutputs[i]->GetName())==0){
+            m_pOutputs.erase(iter);
+        }
+    }
+    std::vector<CPNS::IOutput*> copy(m_pOutputs);
+    m_pDevice->ClearOutputs();
+    m_pOutputs.clear();
+    for(int i=0 ; i<copy.size();i++){
+        const char* c = copy[i]->GetName();
+        m_pOutputs.push_back(m_pDevice->AddOutput(
+                             CPNS::Enums::IOC_Msg_Modifier | CPNS::Enums::IOC_Msg_Event | CPNS::Enums::IOC_Msg_Selector,
+                             c ,CPNS::SectionID::AnyInstanceOf(CPNS::Enums::SECT_Other)));
+        //m_pOutputs.erase(m_pOutputs.begin());
 
-    m_pOutputs.push_back(m_pDevice->AddOutput(
-                                     CPNS::Enums::IOC_Msg_Modifier | CPNS::Enums::IOC_Msg_Event | CPNS::Enums::IOC_Msg_Selector,
-                                     name.c_str(),CPNS::SectionID::AnyInstanceOf(CPNS::Enums::SECT_Other)));
+    }
+*/
+
 }
 
 CPNS::IOutput* CopperlanHandler::findOutputWithName(std::string name){

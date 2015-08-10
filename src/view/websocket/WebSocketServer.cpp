@@ -650,7 +650,14 @@ void WebSocketServer::testOutput(int identifier){
 }
 
 void WebSocketServer::removeOutput(int identifier){
+    if(mCopperlanHander){
+        OutputsHandler* o = mGrid->getOutputWithId(identifier);
+        mCopperlanHander->removeOutput(o->getName());
+        
+        return;
+    }
     mGrid->removeOutput(identifier);
+
     sendGrid();
 }
 
@@ -673,7 +680,7 @@ void WebSocketServer::sendSavedFiles(){
            exit (3);
        } // end if
         int i=0;
-       while (pent = readdir (pdir)) // while there is still something in the directory to list
+       while ((pent = readdir (pdir))) // while there is still something in the directory to list
        {
            if (pent == NULL) // if pent has not been initialised correctly
            { // print an error message, and exit the program
