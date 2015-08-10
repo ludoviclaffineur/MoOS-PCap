@@ -6,6 +6,8 @@ cmake_minimum_required(VERSION 2.8)
 project(MOOS)
 
 
+
+
 SET( Boost_USE_MULTITHREAD ON )
 SET( Boost_USE_STATIC_LIBS TRUE )
 SET(BOOST_MIN_VERSION "1.53.0")
@@ -88,6 +90,18 @@ SET (SOCI_odbc_PLUGIN /opt/local/lib/libsoci_odbc.a)
   SET(MOOS_INCLUDE_DIRS ${MOOS_INCLUDE_DIRS} "/opt/local/include/")
   SET(MOOS_LIBS ${MOOS_LIBS} "/opt/local/lib/libLeap.dylib" )
 
+
+
+
+  SET(MOOS_INCLUDE_DIRS ${MOOS_INCLUDE_DIRS} "/Users/ludoviclaffineur/Documents/sdks/MacSDK/Includes/")
+  SET(MOOS_LIBS ${MOOS_LIBS} "/Users/ludoviclaffineur/Documents/sdks/MacSDK/Libs/MacOS/libCHAI-MacOS.a" )
+
+  find_library(FOUNDATION Foundation)
+  if (NOT FOUNDATION)
+      message(FATAL_ERROR "FOUNDATION not found")
+  endif()
+
+  SET(MOOS_LIBS ${MOOS_LIBS} ${FOUNDATION})
 
 
 
