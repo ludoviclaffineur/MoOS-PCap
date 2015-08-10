@@ -55,6 +55,10 @@
 #include <iomanip>
 #include <iostream>
 #include <fstream>
+
+#include "CopperlanHandler.h"
+#include "CHDataTransferMessageHandler.h"
+
 using websocketpp::lib::placeholders::_1;
 using websocketpp::lib::placeholders::_2;
 using websocketpp::lib::bind;
@@ -123,6 +127,9 @@ namespace view{
             void loadXml(std::string filename);
             void testOutput(int identifier);
             void sendPcapInterfaces(pcap_if_t* interfaces);
+
+            CopperlanHandler* mCopperlanHander;
+
         };
 }
 

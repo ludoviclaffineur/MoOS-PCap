@@ -34,10 +34,11 @@ namespace CONSTANCES {
         OSC =0,
         GRANULAR_SYNTH,
         MIDI,
+        COPPERLAN,
         Total
     };
 
-    const std::string OutputList [OutputType::Total] = {"OSC", "Granular Synth", "MIDI"};
+    const std::string OutputList [OutputType::Total] = {"OSC", "Granular Synth", "MIDI","Copperlan"};
     
 }
 

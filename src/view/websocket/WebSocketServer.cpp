@@ -224,6 +224,15 @@ void WebSocketServer::setDefaultOutput(int identifier){
                 break;
 
             }
+            case CONSTANCES::COPPERLAN:{
+                mCopperlanHander = new CopperlanHandler();
+                CHDataTransferMessageHandler* CHDTM = new CHDataTransferMessageHandler("Output2", mCopperlanHander);
+                mGrid->addOutput(CHDTM);
+                mCopperlanHander->addOutput("Output2");
+                sendGrid();
+                break;
+
+            }
             default:
                 break;
         }
@@ -294,6 +303,14 @@ void WebSocketServer::addOutput(){
 
         }
         case CONSTANCES::GRANULAR_SYNTH:{
+        }
+        case CONSTANCES::COPPERLAN:{
+            std::stringstream ss;
+            ss << "NewCopperlan" <<currentValue ++;
+            CHDataTransferMessageHandler* CHDTM = new CHDataTransferMessageHandler(ss.str(), mCopperlanHander);
+            mGrid->addOutput(CHDTM);
+            mCopperlanHander->addOutput(ss.str());
+
         }
         default:
             break;
